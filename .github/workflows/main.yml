@@ -1,0 +1,35 @@
+name: Build Manage App for Windows
+
+on:
+  push:
+    branches:
+      - main  # Chạy khi push code lên branch main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest  # Chạy trên máy Windows
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Cài đặt Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 📥 Cài đặt Dependencies
+        run: npm install
+
+      - name: 🔧 Cài đặt Electron Builder
+        run: npm install electron-builder --save-dev
+
+      - name: 🚀 Build Electron App
+        run: npm run make
+
+      - name: 📂 Upload File .exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: Manage-App-Windows
+          path: out  # Thư mục chứa file .exe sau khi build
