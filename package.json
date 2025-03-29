@@ -9,7 +9,10 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "dev": "nodemon --exec electron ."
+    "dev": "nodemon --exec electron .",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
   },
   "keywords": [],
   "author": "Hoàng Long",
@@ -25,6 +28,7 @@
     "@electron-forge/plugin-fuses": "^7.7.0",
     "@electron/fuses": "^1.8.0",
     "electron": "^35.0.1",
+    "electron-builder": "^26.0.12",
     "electron-reload": "^2.0.0-alpha.1",
     "nodemon": "^3.1.9"
   },
@@ -53,8 +57,17 @@
   "build": {
     "appId": "com.manageapp.app",
     "productName": "ManageApp",
+    "directories": {
+      "output": "dist"
+    },
     "win": {
       "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
     }
   },
   "config": {
