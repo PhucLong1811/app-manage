@@ -12,7 +12,7 @@
     "dev": "nodemon --exec electron ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Hoàng Long",
   "license": "ISC",
   "devDependencies": {
     "@electron-forge/cli": "^7.7.0",
