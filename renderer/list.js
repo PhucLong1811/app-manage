@@ -129,7 +129,7 @@ $(document).ready(function () {
                 order: [[0, 'asc']], // Mặc định sắp xếp cột đầu tiên (Họ và Tên) tăng dần
                 columnDefs: [
                     { width: "30px", targets: 0 }, // STT nhỏ lại
-                    { width: "280px", targets: -1 }, // Cột action to ra
+                    { width: "350px", targets: -1 }, // Cột action to ra
                     { orderable: true, targets: [0, 1] },
                     { orderable: false, targets: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] } // Các cột khác không sắp xếp
                 ],

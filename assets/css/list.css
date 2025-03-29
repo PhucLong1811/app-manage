@@ -33,20 +33,16 @@ th, td {
 }
 table.dataTable tbody td {
     text-align: center;
+    /* border: 1px solid black; */
+    height: 100%;
+    vertical-align: middle;
 }
 
 table.dataTable tbody td.action {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
 }
 table.dataTable tbody .btn-action {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
+    display: inline-block;
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
     line-height: 0;
@@ -56,4 +52,6 @@ table.dataTable tbody .btn-action .icon {
     height: 15px;
     filter: invert(1);
     margin-right: 5px;
+    /* vertical-align: middle; */
+    vertical-align: text-bottom;
 }

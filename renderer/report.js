@@ -121,7 +121,7 @@ $(document).ready(function () {
 
             // ✅ Tạo thẻ <a> để tải xuống và xóa sau khi sử dụng
             const $a = $("<a>")
-                .attr({ href: pdfUrl, download: "document.pdf" })
+                .attr({ href: pdfUrl, download: "BienBan.pdf" })
                 .appendTo("body")
                 .get(0);
 
