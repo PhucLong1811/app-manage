@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/report.css">
+    <script src="../node_modules/tinymce/tinymce.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+                <ul class="mainMenu">
+                    <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
+                    <li><a href="javascript:void(0)" id="exportPdf">Xuất PDF</a></li>
+                    <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div id="textPdf" class="card card-detail">
+                <div id="document">
+                    <div class="cardHeader">
+                        <div class="leftHeader">
+                            <p class="txt">CÔNG AN THÀNH PHỐ HUẾ</p>
+                            <p class="txt bold halfLineBottom">TRẠI TẠM GIAM</p>
+                            <p class="txt">Số: <input type="text" class="inputStyle" value=""> /NX</p>
+                        </div>
+                        <div class="rightHeader">
+                            <p class="txt bold">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                            <p class="txt bold fullLineBottom">Độc lập - Tự do - Hạnh phúc</p>
+                            <p class="txt txtItalic">Huế, <span class="today"></span></p>
+                        </div>
+                    </div>
+                    <div class="cardBody">
+                        <div class="areaAddEditor">
+                            <a id="addEditorBefore" href="javascript:void(0)" class="btnAddEditor">Thêm nội dung</a>
+                        </div>
+                        <div id="areaEditorBefore"></div>
+                        <div class="areaTitle">
+                            <h2 class="title">
+                                <input type="text" class="inputStyle" value="BẢN NHẬN XÉT">
+                            </h2>
+                            <div class="subTitle">
+                                <input type="text" class="inputStyle"
+                                    value="(V/v chấp hành nội quy của cơ sở giam giữ)">
+                            </div>
+
+                            <!-- <p class="subTitle">(V/v chấp hành nội quy của cơ sở giam giữ)</p> -->
+                        </div>
+                        <div class="cardInfo">
+                            <div class="areaInfo row">
+                                <div class="info w-50">
+                                    <label for="full_name" class="label">Họ và tên:</label>
+                                    <input type="text" class="inputStyle" id="full_name">
+                                </div>
+                                <div class="info w-20">
+                                    <label for="gender" class="label">Giới tính:</label>
+                                    <input type="text" class="inputStyle" id="gender">
+                                </div>
+                                <div class="info w-30">
+                                    <label for="birthYear" class="label">Năm sinh:</label>
+                                    <input type="text" class="inputStyle" id="birthYear">
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <label for="name_other" class="label">Tên gọi khác:</label>
+                                    <input type="text" class="inputStyle" id="name_other">
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <label for="hometown" class="label">Quê quán:</label>
+                                    <input type="text" class="inputStyle" id="hometown">
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <label for="permanent_address" class="label">Nơi cư trú:</label>
+                                    <input type="text" class="inputStyle" id="permanent_address">
+                                </div>
+                            </div>
+                            <div class="areaInfo row">
+                                <div class="info w-50">
+                                    <label for="permanent_address" class="label">Dân tộc:</label>
+                                    <input type="text" class="inputStyle" id="permanent_address">
+                                </div>
+                                <div class="info w-50">
+                                    <label for="permanent_address" class="label">Quốc tịch:</label>
+                                    <input type="text" class="inputStyle" id="permanent_address">
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <label for="" class="label">Hành vi phạm tội:</label>
+                                    <input type="text" class="inputStyle" id="">
+                                </div>
+                            </div>
+                            <div class="areaInfo row">
+                                <div class="info w-25">
+                                    <label for="arrest_date" class="label">Bị bắt ngày:</label>
+                                    <input type="text" class="inputStyle" id="arrest_date">
+                                </div>
+                                <div class="info w-75">
+                                    <label for="xxx" class="label">Đơn vị thụ lý vụ án:</label>
+                                    <input type="text" class="inputStyle" id="xxx">
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <label for="xxxx" class="label">Vào trại giam Công an thành phố Huế,ngày:</label>
+                                    <input type="text" class="inputStyle" id="xxxx">
+                                </div>
+                            </div>
+                            <div class="areaInfo row">
+                                <div class="info w-50">
+                                    <label for="xxxx" class="label">Số giam:</label>
+                                    <input type="text" class="inputStyle" id="xxxx">
+                                </div>
+                                <div class="info w-30">
+                                    <label for="cell" class="label">Buồng tạm giam số:</label>
+                                    <input type="text" class="inputStyle" id="cell">
+                                </div>
+                                <div class="info w-20">
+                                    <label for="zone" class="label">Khu giam:</label>
+                                    <input type="text" class="inputStyle" id="zone">
+                                </div>
+                            </div>
+                            <!-- <div id="editableContent">
+                                <textarea id="editor">
+
+                                </textarea>
+                            </div> -->
+                        </div>
+
+                        <div class="areaAddEditor">
+                            <a id="addEditorAfter" href="javascript:void(0)" class="btnAddEditor">Thêm nội dung</a>
+                        </div>
+
+                        <div id="areaEditorAfter"></div>
+                    </div>
+                    <div class="cardFooter">
+                        <div class="signature">
+                            <div class="areaSignatureLeft">GIÁM THỊ</div>
+                            <div class="areaSignatureRight">
+                                <h3 class="titleSignature">
+                                    <input type="text" class="inputStyle" value="CÁN BỘ QUẢN GIÁO">
+                                </h3>
+                                <div class="contentSignature"></div>
+                                <h3 class="fullNameSignature">
+                                    <input type="text" class="inputStyle" value="" placeholder="Họ và tên">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- <button id="addField">Thêm trường mới</button>
+                    <div id="extraFields"></div> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../renderer/report.js"></script>
+    <!-- <script src="../renderer/export-word.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách</title>
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/datatables.min.css">
+    <link rel="stylesheet" href="../assets/css/list.css">
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <!-- <h1 class="headerTitle">Danh sách</h1> -->
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../assets/images/icon/icon-back.svg" alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+                <ul class="mainMenu" id="menu">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="areaTable">
+                <div class="tableFilter">
+                    <label for="filterLength">Hiển thị:</label>
+                    <select id="filterLength">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                
+                    <label for="filterKhu">Khu:</label>
+                    <select id="filterKhu">
+                        <option value="">Tất cả</option>
+                    </select>
+                
+                    <label for="filterBuong">Buồng:</label>
+                    <select id="filterBuong">
+                        <option value="">Tất cả</option>
+                    </select>
+                </div>
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Họ và Tên</th>
+                            <th>Giới tính</th>
+                            <th>Ngày sinh</th>
+                            <th>Năm sinh</th>
+                            <th>Quê quán</th>
+                            <th>Hktt</th>
+                            <th>Khu</th>
+                            <th>Buồng</th>
+                            <th>Gặp</th>
+                            <th>Cấm gặp</th>
+                            <th>Gửi</th>
+                            <th>Lệnh</th>
+                            <th>Ngày bắt</th>
+                            <th>Ngày nhập</th>
+                            <th class="action"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../assets/js/datatables.min.js"></script>
+    <script src="../renderer/list.js"></script>
+    <script src="../renderer/excel.js"></script>
+</body>
+
+</html>

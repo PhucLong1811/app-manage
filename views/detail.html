@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/detail.css">
+    <script src="../node_modules/tinymce/tinymce.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+                <ul class="mainMenu">
+                    <!-- <li><a href="javascript:void(0)" id="exportPdf">Biên bản</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="card">
+                <div class="areaDetail">
+                    <div class="card-body">
+                        <div class="areaInfo">
+                            <p class="label">Họ và Tên:</p>
+                            <p class="info" id="full_name"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Giới tính:</p>
+                            <p class="info" id="gender"></p>
+                        </div>
+                
+                        <div class="areaInfo">
+                            <p class="label">Ngày sinh:</p>
+                            <p class="info" id="birthdate"></p>
+                        </div>
+                
+                        <div class="areaInfo">
+                            <p class="label">Quê quán:</p>
+                            <p class="info" id="hometown"></p>
+                        </div>
+                
+                        <div class="areaInfo">
+                            <p class="label">Hktt:</p>
+                            <p class="info" id="permanent_address"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Khu:</p>
+                            <p class="info" id="zone"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Buồng:</p>
+                            <p class="info" id="cell"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Gặp:</p>
+                            <p class="info" id="visit"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Cấm thăm:</p>
+                            <p class="info" id="no_visit"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Gửi:</p>
+                            <p class="info" id="send"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Lệnh:</p>
+                            <p class="info" id="arrest_warrant"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Ngày bắt:</p>
+                            <p class="info" id="arrest_date"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Ngày nhập:</p>
+                            <p class="info" id="prison_entry"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Nhận xét:</p>
+                            <p class="info" id="comment"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Ghi chú:</p>
+                            <p class="info" id="note"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Được tạo bởi:</p>
+                            <p class="info" id="created_by_user"></p>
+                        </div>
+                        <div class="areaInfo">
+                            <p class="label">Được cập nhật bởi:</p>
+                            <p class="info" id="updated_by_user"></p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary float-right edit-btn">Cập nhật</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../renderer/detail.js"></script>
+</body>
+
+</html>

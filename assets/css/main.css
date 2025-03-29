@@ -1,0 +1,26 @@
+.areaBtn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+.areaBtn .btnStyle {
+    width: 145px;
+    height: 145px;
+    background: #F2F4F5;
+    background: linear-gradient(to bottom, #F4F6F7, #E6EAEC);
+    border-radius: 30px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3084F3;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.areaBtn .btnStyle:hover {
+    background: #399CF6;
+    background: linear-gradient(to bottom, #27A1F2, #0066D6);
+    color: #FFFFFF;
+}

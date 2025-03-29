@@ -1,0 +1,59 @@
+
+.menu {
+    margin-bottom: 20px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+.areaTable {
+    
+}
+.areaTable .tableFilter {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    float: left;
+}
+.areaTable #dataTable_wrapper {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+}
+table.dataTable thead th { 
+    text-align: center;
+}
+th, td {
+    padding: 10px;
+}
+table.dataTable tbody td {
+    text-align: center;
+}
+
+table.dataTable tbody td.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+table.dataTable tbody .btn-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    line-height: 0;
+}
+table.dataTable tbody .btn-action .icon {
+    width: 15px;
+    height: 15px;
+    filter: invert(1);
+    margin-right: 5px;
+}

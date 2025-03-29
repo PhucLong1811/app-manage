@@ -1,0 +1,83 @@
+{
+  "name": "manage-app",
+  "productName": "Manage App",
+  "version": "1.0.0",
+  "description": "Ứng dụng quản lý",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "dev": "nodemon --exec electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.7.0",
+    "@electron-forge/maker-deb": "^7.7.0",
+    "@electron-forge/maker-dmg": "^7.7.0",
+    "@electron-forge/maker-rpm": "^7.7.0",
+    "@electron-forge/maker-squirrel": "^7.7.0",
+    "@electron-forge/maker-zip": "^7.7.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.7.0",
+    "@electron-forge/plugin-fuses": "^7.7.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "^35.0.1",
+    "electron-reload": "^2.0.0-alpha.1",
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "datatables.net": "^2.2.2",
+    "datatables.net-dt": "^2.2.2",
+    "docx": "^9.3.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "file-saver": "^2.0.5",
+    "fs": "^0.0.1-security",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
+    "jquery": "^3.7.1",
+    "jquery-validation": "^1.21.0",
+    "jspdf": "^2.3.1",
+    "moment": "^2.30.1",
+    "path": "^0.12.7",
+    "pdfmake": "^0.2.18",
+    "puppeteer": "^24.4.0",
+    "sweetalert2": "^11.17.2",
+    "tinymce": "^7.7.2",
+    "xlsx": "^0.18.5"
+  },
+  "build": {
+    "appId": "com.manageapp.app",
+    "productName": "ManageApp",
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "assets/images/app"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "manage-app",
+            "setupExe": "ManageAppSetup.exe",
+            "noMsi": true
+          }
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "format": "ULFO"
+          }
+        }
+      ]
+    }
+  }
+}

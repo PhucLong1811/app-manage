@@ -1,0 +1,33 @@
+.card-login {
+    width: 750px;
+    margin-top: 100px;
+}
+
+.areaForm {
+    width: 350px;
+}
+.areaForm .title {
+    font-size: 26px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+.areaForm .form-group {
+    display: block;
+    margin-bottom: 0;
+}
+.areaForm .form-group .wrapInput {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.areaForm .form-group .wrapInput:last-child{
+    margin-bottom: 0;
+}
+.wrapBtn {
+    margin-top: 15px;
+    text-align: center;
+}
+.wrapBtn .btn {
+    width: 150px;
+}

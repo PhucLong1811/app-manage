@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+    <title>Đăng nhập</title>
+</head>
+
+<body>
+    <!-- <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" class="btnBack"><img src="../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+            </div>
+        </div>
+    </div> -->
+    <div class="content">
+        <div class="inner">
+            <div class="card card-login">
+                <form action="" id="loginForm" class="areaForm">
+                    <div class="title">
+                        <h1>Đăng nhập</h1>
+                    </div>
+                    <div class="form-group">
+                        <div class="wrapInput">
+                            <input type="text" id="username" class="inputStyle" placeholder="Tài khoản">
+                        </div>
+                        <!-- <div class="wrapInput">
+                            <input type="password" id="password" class="inputStyle" placeholder="Mật khẩu">
+                        </div> -->
+                        <div class="wrapInput">
+                            <div class="areaInputPassword">
+                                <input type="password" id="password" class="inputStyle" name="password"
+                                    placeholder="Nhập mật khẩu">
+                                <img src="../assets/images/icon/eye-off-svgrepo-com.svg" class="iconEye eyeOff" alt="">
+                                <img src="../assets/images/icon/eye-svgrepo-com.svg" class="iconEye eye hidden" alt="">
+                            </div>
+                            <div class="error"></div>
+                        </div>
+                    </div>
+                    <p id="error" style="color: red;"></p>
+                    <div class="wrapBtn">
+                        <!-- <a href="javascript:void(0)"  class="btn btn-primary">Đăng nhập</a> -->
+                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const $ = require("jquery");
+        const { ipcRenderer } = require("electron");
+
+        const user = JSON.parse(sessionStorage.getItem("user"));
+
+        $(document).ready(() => {
+            $('.wrapInput').on('click', '.iconEye', function () {
+                const self = $(this);
+                let input = self.closest(".wrapInput").find("input");
+                let type = input.attr("type") === "password" ? "text" : "password";
+                input.attr("type", type);
+
+                self.closest(".wrapInput").find(".eye, .eyeOff").toggleClass("hidden");
+            });
+            $("#loginForm").on("submit", function (event) {
+                console.log('zxcxzc')
+                event.preventDefault(); // Ngăn chặn reload trang khi submit
+                const username = $("#username").val();
+                const password = $("#password").val();
+
+                ipcRenderer.send("login-attempt", { username, password });
+
+                ipcRenderer.once("login-response", (_, response) => {
+                    if (response.success) {
+                        sessionStorage.setItem("user", JSON.stringify(response.user));
+                        ipcRenderer.send("open-main"); // Chuyển vào màn hình chính
+                    } else {
+                        $("#error").text(response.message);
+                    }
+                });
+            });
+            $(".inputStyle").on("keydown", function (event) {
+                if (event.code === "Enter" || event.code === "NumpadEnter") {
+                    console.log(`Nhấn phím: ${event.code}`); // Debug để kiểm tra
+                    $("#loginForm").submit();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
