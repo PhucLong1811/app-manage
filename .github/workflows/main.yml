@@ -9,10 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest]
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -26,16 +23,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Manage app
-        run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            npm run build:win
-          elif [[ "$RUNNER_OS" == "macOS" ]]; then
-            npm run build:mac
-          fi
+      - name: Build Manage app for Windows
+        run: npm run make
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: build-output
-          path: dist/
+          name: ManageApp-Installer
+          path: out/make/**/*.exe

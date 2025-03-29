@@ -57,17 +57,16 @@
   "build": {
     "appId": "com.manageapp.app",
     "productName": "ManageApp",
-    "directories": {
-      "output": "dist"
-    },
+    "copyright": "Copyright © 2025",
     "win": {
-      "target": "nsis"
+      "target": [
+        "nsis"
+      ]
     },
-    "mac": {
-      "target": "dmg"
-    },
-    "linux": {
-      "target": "AppImage"
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
     }
   },
   "config": {
