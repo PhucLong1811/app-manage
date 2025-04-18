@@ -1,0 +1,183 @@
+/* Reset các thuộc tính mặc định của trình duyệt */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Toàn bộ văn bản theo chuẩn Word */
+body {
+    font-family: 'Times New Roman', serif;
+    font-size: 13pt;
+    line-height: 1.5;
+    text-align: justify;
+    /* margin: 2.5cm; */
+    background: white;
+    color: black;
+}
+.inner {
+    width: 100%;
+    padding: 0 4%;
+    margin: 0 auto;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+a:focus {
+    outline: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin-top: 12pt;
+    margin-bottom: 12pt;
+}
+/* Định dạng đoạn văn */
+p {
+    font-size: 13pt;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+/* Danh sách không có dấu chấm đầu dòng */
+ul, ol {
+    margin-left: 40px;
+}
+
+/* Định dạng danh sách có dấu gạch đầu dòng */
+ul {
+    list-style-type: disc;
+}
+
+/* Định dạng danh sách đánh số */
+ol {
+    list-style-type: decimal;
+}
+
+/* Bảng biểu */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 0;
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Định dạng in đậm */
+strong, b {
+    font-weight: bold;
+}
+
+/* Định dạng in nghiêng */
+em, i {
+    font-style: italic;
+}
+
+/* Gạch chân */
+u {
+    text-decoration: underline;
+}
+blockquote {
+    margin-left: 36pt;
+    font-style: italic;
+}
+ul {
+    list-style: none;
+}
+dl, menu, ol, ul {
+    margin: 0;
+}
+dd {
+    margin: 0;
+}
+/**
+ * Address paddings set differently in IE 6/7.
+ */
+
+menu, ol, ul {
+    padding: 0;
+}
+/* common */
+
+/* HEADER */
+#header {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+#header .headerTitle {
+    font-size: 34px;
+    line-height: 41px;
+    padding: 30px 0 15px;
+    border-bottom: 1px solid #ECECEC;
+}
+#header .hdMenu {
+    padding: 30px 0 15px;
+    border-bottom: 1px solid #ECECEC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#header .hdMenu .mainMenu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 30px;
+}
+#header .hdMenu .mainMenu li a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-family: 'arial', sans-serif;
+}
+#header .hdMenu .mainMenu li a:hover {
+    color: #29378B;
+}
+#header .hdMenu .mainMenu li.active a {
+    color: #29378B;
+}
+#header .hdMenu .mainMenu li.active a:before {
+    width: 100%;
+}
+#header .hdMenu .mainMenu li a:before {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #29378B;
+    transition: all .3s;
+}
+#header .hdMenu .mainMenu li a .icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+#header .hdMenu .mainMenu li a:hover .icon {
+    filter: brightness(0) saturate(100%) invert(15%) sepia(80%) saturate(800%) hue-rotate(220deg);
+}
+/* CONTENT */
+#content {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}

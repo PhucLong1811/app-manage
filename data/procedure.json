@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1743415361357,
+    "title": "Biên bản giao nhận quyết định thi hành án",
+    "type": "Giao nhận",
+    "view": "handover-enforcement-decision"
+  },
+  {
+    "id": 1743477594467,
+    "title": "Biên bản giao nhận 1 người",
+    "type": "Giao nhận",
+    "view": "handover-one-person"
+  },
+  {
+    "id": 1743477604494,
+    "title": "Biên bản giao nhận nhiều người",
+    "type": "Giao nhận",
+    "view": "handover-multiple-people"
+  },
+  {
+    "id": 1743477609250,
+    "title": "Biên bản giao nhận 15%",
+    "type": "Giao nhận",
+    "view": "handover-15-percent"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Đề xuất thăm gặp",
+    "type": "Thăm gặp",
+    "view": "visit-proposal"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Quyết định thăm gặp",
+    "type": "Thăm gặp",
+    "view": "visit-decision"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Biên bản phổ biến nội quy",
+    "type": "Biên bản",
+    "view": "regulations-briefing-record"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Báo cáo đề xuất",
+    "type": "Đề xuất",
+    "view": "proposal-report"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Quyết định bố trí",
+    "type": "Quyết định",
+    "view": "assignment-decision"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Biên bản nhận xét",
+    "type": "Biên bản",
+    "view": "evaluation-record"
+  }
+]

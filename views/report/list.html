@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách</title>
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/datatables.min.css">
+    <link rel="stylesheet" href="../../assets/css/report/list.css">
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <!-- <h1 class="headerTitle">Danh sách</h1> -->
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../../assets/images/icon/icon-back.svg" alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+                <ul class="mainMenu" id="menu">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="areaTable">
+                <table id="reportTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên</th>
+                            <th>Loại</th>
+                            <th class="action"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../assets/js/datatables.min.js"></script>
+    <script src="../../renderer/report/list.js"></script>
+</body>
+
+</html>

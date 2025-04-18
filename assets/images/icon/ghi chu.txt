@@ -1,0 +1,12 @@
+Main:
+- danh sách
+	+ chỉ crud
+	+ danh sách hiển thị STT, Họ, Tên, Năm sinh, quê quán, hktt,khu,buồng, Tội, cấm gặp, ngày bắt, ngày nhập
+	+ ở giữa filter và search hiển thị tổng khu 
+	+ filter: khu, buồng, giới tính, 
+	+ làm thêm 1 trang xuất excel ( 
+- biểu mẫu
+	+ admin tự cài mẫu, user xem và xuất pdf
+- thủ tục:
+	+ admin tạo thủ tục ( tạm thời tạo 1 thủ trước còn admin tạo thì để sau )
+	

@@ -1,0 +1,14 @@
+.areaForm .form-group {
+    display: block;
+    width: 798px;
+    margin: 0 auto 15px;
+}
+.areaForm .form-group .label {
+    width: 100%;
+}
+.areaForm .form-group .wrapInput {
+    width: 100%;
+}
+.tox .tox-promotion-link {
+    display: none !important;
+}

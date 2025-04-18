@@ -4,10 +4,8 @@ const path = require('path');
 const $ = require('jquery');
 const bcrypt = require('bcrypt');
 require("jquery-validation");
-const moment = require('moment');
 const dataFilePath = path.join(__dirname, '..', 'data', 'user.json');
 const user = JSON.parse(sessionStorage.getItem("user"));
-console.log(user, 'zxcxzcxz')
 $(document).ready(function () {
     $(".btnBack").click(function () {
         ipcRenderer.send('back-to-main');

@@ -1,6 +1,3 @@
-const fs = require('fs');
-const { saveAs } = require('file-saver');
-const { Document, Packer, Paragraph, TextRun } = require('docx');
 const $ = require('jquery');
 const { ipcRenderer } = require('electron');
 const path = require('path');
@@ -62,12 +59,73 @@ $(document).ready(function () {
             height: 300,
             menubar: false,
             branding: false,
+            language_url: '../assets/language/tinymce-vi.js',
+            language: 'vi',
             plugins: 'table lists advlist',
-            toolbar: 'formatselect | fontsizeinput | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | bullist | table',
+            toolbar: 'formatselect | blocks fontfamily fontsizeinput | lineheight | bold italic underline | alignleft aligncenter alignright alignjustify | outdent indent | table | insertShortcode',
             toolbar_mode: 'wrap',
             fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt 48pt 72pt',
             content_style: "body { margin: 1rem }",
-            content_css: "../assets/css/base.css"
+            content_css: "../assets/css/base.css",
+            style_formats: [
+                { title: 'Đoạn văn (P)', block: 'p' },
+                { title: 'Tiêu đề 1', block: 'h1' },
+                { title: 'Tiêu đề 2', block: 'h2' },
+                { title: 'Tiêu đề 3', block: 'h3' },
+                { title: 'Canh lề trái', selector: 'p', styles: { 'text-align': 'left' } },
+                { title: 'Canh lề giữa', selector: 'p', styles: { 'text-align': 'center' } },
+                { title: 'Canh lề phải', selector: 'p', styles: { 'text-align': 'right' } },
+                { title: 'Canh đều hai bên', selector: 'p', styles: { 'text-align': 'justify' } }
+            ],
+            setup: function (editor) {
+                // Thêm nút dropdown "Chèn Shortcode"
+                editor.ui.registry.addMenuButton('insertShortcode', {
+                    text: 'Chèn Shortcode',
+                    fetch: function (callback) {
+                        callback([
+                            {
+                                type: 'menuitem',
+                                text: 'Tên đầy đủ',
+                                onAction: function () {
+                                    editor.insertContent('<span class="shortcode">[name]</span>');
+                                }
+                            },
+                            {
+                                type: 'menuitem',
+                                text: 'Ngày sinh',
+                                onAction: function () {
+                                    editor.insertContent('<span class="shortcode">[birthday]</span>');
+                                }
+                            },
+                            {
+                                type: 'menuitem',
+                                text: 'Email',
+                                onAction: function () {
+                                    editor.insertContent('<span class="shortcode">[email]</span>');
+                                }
+                            }
+                        ]);
+                    }
+                });
+
+                
+                // Khi nhấn Tab, chèn khoảng trắng thay vì chuyển input
+                editor.on('keydown', function (event) {
+                    if (event.key === 'Tab') {
+                        event.preventDefault(); // Chặn mặc định (di chuyển input)
+
+                        let tabSpaces = '    '; // 4 khoảng trắng
+                        editor.execCommand('mceInsertContent', false, tabSpaces);
+                    }
+                });
+                // Khi lưu nội dung, loại bỏ <span> để lưu shortcode gọn gàng
+                editor.on('GetContent', function (e) {
+                    e.content = e.content
+                        .replace(/<span class="shortcode">\[name\]<\/span>/g, '[name]')
+                        .replace(/<span class="shortcode">\[birthday\]<\/span>/g, '[birthday]')
+                        .replace(/<span class="shortcode">\[email\]<\/span>/g, '[email]');
+                });
+            }
         });
     }
 

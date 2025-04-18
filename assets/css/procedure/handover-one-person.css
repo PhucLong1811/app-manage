@@ -1,0 +1,10 @@
+#document .cardHeader {
+    position: relative;
+}
+#document .cardHeader .areaSampleTGI{
+    position: absolute;
+    right: -10px;
+    top: -12px;
+    font-size: 9pt;
+    text-align: center;
+}

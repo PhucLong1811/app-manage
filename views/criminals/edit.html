@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa</title>
+    <link rel="stylesheet" href="../../assets/css/common.css">
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" class="btnBack"><img src="../../assets/images/icon/icon-back.svg" alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="card">
+                <form id="editForm" class="areaForm">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="label" for="last_name">Họ và Tên: <span class="require">*</span></label>
+                            <div class="wrapInput row">
+                                <div class="areaInput w-50">
+                                    <input type="text" id="last_name" class="inputStyle" name="last_name" placeholder="Nhập họ">
+                                </div>
+                                <div class="areaInput w-50">
+                                    <input type="text" id="first_name" class="inputStyle" name="first_name" placeholder="Nhập tên">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="gender">Giới tính: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <Select class="inputStyle" id="gender" class="inputStyle" name="gender" >
+                                    <option value="" disabled selected>Chọn giới tính</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </Select>
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="label" for="birthdate">Ngày sinh: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="date" id="birthdate" class="inputStyle" name="birthdate" placeholder="Nhập ngày sinh">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="ethnicity">Dân tộc: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="ethnicity" class="inputStyle" name="ethnicity" placeholder="Nhập dân tộc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="nation">Quốc tịch: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="nation" class="inputStyle" name="nation" placeholder="Nhập quốc tịch">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="hometown">Quê quán: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="hometown" class="inputStyle" name="hometown" placeholder="Nhập quê quán">
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <label class="label" for="permanent_address">Hktt: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="permanent_address" class="inputStyle" name="permanent_address" placeholder="Nhập Hktt">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="zone">Khu: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="zone" class="inputStyle" name="zone" placeholder="Nhập khu">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="cell">Buồng: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="cell" class="inputStyle" name="cell" placeholder="Nhập buồng">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="offense">Tội: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <textarea rows="4" class="textareaStyle" id="offense" name="offense" placeholder="Nhập tội"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="arrest_date">Ngày bắt: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="date" id="arrest_date" class="inputStyle" name="arrest_date" placeholder="Nhập ngày bắt">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="prison_entry">Ngày nhập: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="date" id="prison_entry" class="inputStyle" name="prison_entry" placeholder="Nhập ngày nhập">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="arrest_warrant">Lệnh: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="arrest_warrant" class="inputStyle" name="arrest_warrant" placeholder="Nhập lệnh">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="handling_agency">Đơn vị thụ lý: <span class="require">*</span></label>
+                            <div class="wrapInput">
+                                <input type="text" id="handling_agency" class="inputStyle" name="handling_agency" placeholder="Nhập đơn vị thụ lý">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="comment">Nhận xét:</label>
+                            <div class="wrapInput">
+                                <input type="month" id="comment" class="inputStyle" name="comment" placeholder="Nhập nhận xét">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="no_visit">Cấm thăm gặp:</label>
+                            <div class="wrapInput">
+                                <Select class="inputStyle" id="no_visit" class="inputStyle" name="no_visit" >
+                                    <option value="Không" selected>Không</option>
+                                    <option value="Có">Có</option>
+                                </Select>
+                            </div>
+                        </div>
+                        <div class="form-group hide">
+                            <label class="label" for="no_visit_date">Thời gian cấm gặp:</label>
+                            <div class="wrapInput">
+                                <input type="text" class="inputStyle" id="no_visit_date" name="no_visit_date" placeholder="Nhập thời gian cấm gặp"></input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="disease">Bệnh:</label>
+                            <div class="wrapInput">
+                                <textarea rows="4" class="textareaStyle" id="disease" name="disease" placeholder="Nhập bệnh"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="note">Ghi chú:</label>
+                            <div class="wrapInput">
+                                <textarea rows="4" class="textareaStyle" id="note" name="note" placeholder="Nhập ghi chú"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="visit">Gặp:</label>
+                            <div class="wrapInput">
+                                <input type="date" id="visit" class="inputStyle" name="visit" placeholder="Nhập gặp">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="send">Gửi:</label>
+                            <div class="wrapInput">
+                                <input type="date" id="send" class="inputStyle" name="send" placeholder="Nhập gửi">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-secondary btnBack">Huỷ bỏ</button>
+                        <button type="submit" class="btn btn-primary float-right">Cập nhật</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../../renderer/criminals/edit.js"></script>
+</body>
+
+</html>

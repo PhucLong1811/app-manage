@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quyết định bố trí</title>
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
+    <link rel="stylesheet" href="../../assets/css/procedure/assignment-decision.css">
+    <script src="../../node_modules/tinymce/tinymce.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+                <ul class="mainMenu">
+                    <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Quyết định bố trí">Xuất PDF</a></li>
+                    <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="filterUser">
+                <select name="" id="selectUserData" class="selectStyle">
+                    <option value="">Chọn phạm nhân</option>
+                </select>
+            </div>
+            <div id="selectMarginFile">
+                <div class="areaInput">
+                    <label for="paper-margin-top">Lề trên:</label>
+                    <input type="number" id="paper-margin-top" value="2">
+                </div>
+                <div class="areaInput">
+                    <label for="paper-margin-right">Lề phải:</label>
+                    <input type="number" id="paper-margin-right" value="1.5">
+                </div>
+                <div class="areaInput">
+                    <label for="paper-margin-bottom">Lề dưới:</label>
+                    <input type="number" id="paper-margin-bottom" value="0">
+                </div>
+                <div class="areaInput">
+                    <label for="paper-margin-left">Lề trái:</label>
+                    <input type="number" id="paper-margin-left" value="3">
+                </div>
+            </div>
+            <div id="textPdf" class="card card-detail">
+                <div id="document">
+                    <div class="cardHeader">
+                        <div class="leftHeader">
+                            <p class="txt">CÔNG AN THÀNH PHỐ HUẾ</p>
+                            <p class="txt bold halfLineBottom">TRẠI TẠM GIAM</p>
+                            <p class="txt">Số: <input type="text" class="inputStyle" value=""> /QĐ</p>
+                        </div>
+                        <div class="rightHeader">
+                            <p class="txt bold">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                            <p class="txt bold fullLineBottom">Độc lập - Tự do - Hạnh phúc</p>
+                            <p class="txt txtItalic">Huế, ngày&nbsp;<input type="text" class="inputStyle small-30"
+                                    value="">&nbsp;tháng&nbsp;<input type="text" class="inputStyle small-30"
+                                    value="">&nbsp;năm&nbsp;<input type="text" class="inputStyle small-50" value=""></p>
+                        </div>
+                        <div class="areaSampleTGI">
+                            <p class="uppercase">MẪu TG6</p>
+                            <p>BH theo TT số 20/TT-BCA</p>
+                            <p>Ngày 08/06/2016</p>
+                        </div>
+                    </div>
+                    <div class="cardBody">
+                        <div class="areaTitle">
+                            <h2 class="title">
+                                Quyết định
+                            </h2>
+                            <div class="subTitle">
+                                Bố trí giam giữ
+                            </div>
+                        </div>
+                        <div class="areaTitle mt-20">
+                            <h2 class="title">
+                                Giám thị trại tạm giam
+                            </h2>
+                        </div>
+                        <div class="cardInfo">
+                            <div class="areaInfo">
+                                <p class="txt txt-italic">
+                                    &emsp;&emsp;Căn cứ Điều 13 Luật thi hành tạm giữ, tạm giam quy định nhiệm vụ, quyền
+                                    hạn, của nhà tạm giữ, trại tạm giam;
+                                </p>
+                            </div>
+                            <div class="areaInfo">
+                                <p class="txt txt-italic">
+                                    &emsp;&emsp;Căn cứ Điều 18 Luật thi hành tạm giữ, tạm giam quy định phân loại quản
+                                    lý người bị tạm giữ, người bị tạm giam
+                                </p>
+                            </div>
+                            <div class="areaInfo">
+                                <p class="txt txt-center txt-italic">
+                                    &emsp;&emsp;Xét báo cáo đề xuất của đồng chí Đội trưởng đội Quản giáo.
+                                </p>
+                            </div>
+                            <div class="areaTitle mt-20">
+                                <h2 class="title">
+                                    Quyết định
+                                </h2>
+                            </div>
+                            <div class="areaInfo row ml-40">
+                                <div class="info w-60">
+                                    <p for="cell" class="label"><span class="bold">Điều 1. </span> Bố trí giam giữ tại
+                                        buồng số: <span id="cell"></span></p>
+                                </div>
+                                <div class="info w-40">
+                                    <p for="zone" class="label">Nhà giam khu: <span id="zone"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <p class="txt">
+                                    Đối với: người bị tạm giữ/tạm giam có lai lịch như sau:
+                                </p>
+                            </div>
+                            <div class="areaInfo row">
+                                <div class="info w-40">
+                                    <p for="full_name" class="label">Họ và tên: <span id="full_name"></span></p>
+                                </div>
+                                <div class="info w-30">
+                                    <p for="gender" class="label">Giới tính: <span id="gender"></span></p>
+                                </div>
+                                <div class="info w-30">
+                                    <p for="birthYear" class="label">Năm sinh: <span id="birthYear"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="hometown" class="label">Quê quán: <span id="hometown"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="permanent_address" class="label">Nơi ĐKTT: <span
+                                            id="permanent_address"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo row">
+                                <div class="info w-40">
+                                    <p for="ethnicity" class="label">Dân tộc: <span id="ethnicity"></span></p>
+                                </div>
+                                <div class="info w-60">
+                                    <p for="nation" class="label">Quốc tịch: <span id="nation"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo row">
+                                <div class="info w-40">
+                                    <p for="arrest_date" class="label">Bị bắt ngày: <span id="arrest_date"></span></p>
+                                </div>
+                                <div class="info w-60">
+                                    <p for="handling_agency" class="label">Đơn vị thụ lý vụ án: <span
+                                            id="handling_agency"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="offense" class="label">Hành vi phạm tội: <span id="offense"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="prison_entry" class="label">Vào Trại tạm giam Công an thành phố
+                                        Huế,ngày: <span id="prison_entry"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="arrest_warrant" class="label">Căn cứ <span id="arrest_warrant"></span></p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <p class="txt">
+                                    &emsp;&emsp;<span class="bold">Điều 2. </span> Quyết định này có hiệu lực kể từ ngày
+                                    ký, đồng chí Đội trưởng đội Quản giáo và người có tên tại Điều 1 chịu trách nhiệm
+                                    thi hành Quyết định này./.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cardFooter">
+                        <div class="signature">
+                            <div class="areaSignature">
+                                <div class="note">
+                                    <h3 class="title">Nơi nhận:</h3>
+                                    <p class="txt">- Cán bộ đề xuất (để thực hiện);</p>
+                                    <p class="txt">- Lưu hồ sơ người bị TG/TG.</p>
+                                </div>
+                            </div>
+                            <div class="areaSignature">
+                                <h3 class="titleSignature">Giám thị</h3>
+                                <div class="contentSignature"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../../renderer/procedure/detail.js"></script>
+    <!-- <script src="../../renderer/export-word.js"></script> -->
+</body>
+
+</html>

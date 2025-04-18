@@ -1,0 +1,164 @@
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const path = require('path');
+const XLSX = require('xlsx'); // Import thư viện XLSX
+const fs = require('fs');
+const bcrypt = require('bcrypt');
+
+let mainWindow;
+let historyStack = []; // Lưu lịch sử trang
+
+app.whenReady().then(() => {
+    mainWindow = new BrowserWindow({
+        width: 1400,
+        height: 1000,
+        // fullscreen: true,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    });
+    mainWindow.loadFile("views/login.html");
+    mainWindow.maximize();
+    // Lưu trang vào lịch sử khi chuyển trang
+    function navigateTo(filePath) {
+        historyStack.push(filePath);
+        mainWindow.loadFile(filePath);
+    }
+    // Xử lý đăng nhập
+    ipcMain.on("login-attempt", (event, { username, password }) => {
+        try {
+            const filePath = path.join(__dirname, "data/user.json");
+            const rawData = fs.readFileSync(filePath, "utf-8");
+            const users = JSON.parse(rawData);
+    
+            if (!Array.isArray(users)) {
+                throw new Error("Dữ liệu user.json không hợp lệ!");
+            }
+    
+            // Tìm user theo username
+            const user = users.find(user => user.username === username);
+    
+            if (!user) {
+                event.reply("login-response", { success: false, message: "Tài khoản không tồn tại!" });
+                return;
+            }
+    
+            // Kiểm tra mật khẩu với bcrypt
+            if (!bcrypt.compareSync(password, user.password)) {
+                event.reply("login-response", { success: false, message: "Sai mật khẩu!" });
+                return;
+            }
+    
+            // Đăng nhập thành công
+            event.reply("login-response", { success: true, user: user });
+    
+        } catch (error) {
+            console.error("Lỗi khi đọc user.json:", error);
+            event.reply("login-response", { success: false, message: "Lỗi hệ thống, vui lòng thử lại!" });
+        }
+    });
+    ipcMain.on("open-main", () => navigateTo("views/main.html"));
+    ipcMain.on("back-to-main", () => navigateTo("views/main.html"));
+    ipcMain.on("open-list", () => navigateTo("views/criminals/list.html"));
+    ipcMain.on("open-create", () => navigateTo("views/criminals/create.html"));
+    ipcMain.on("open-filter-export-excel", () => navigateTo("views/criminals/filter-export-excel.html"));
+
+    ipcMain.on('open-edit', (event, item) => {
+        navigateTo("views/criminals/edit.html");
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.send('edit-item', item);
+        });
+    });
+
+    ipcMain.on('open-detail', (event, item) => {
+        navigateTo("views/criminals/detail.html");
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.send('load-detail', item);
+        });
+    });
+    ipcMain.on('open-report', (event, item) => {
+        navigateTo("views/report.html");
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.send('user-report', item);
+        });
+    });
+    // router report
+    ipcMain.on("report-list", () => navigateTo("views/report/list.html"));
+    ipcMain.on("report-create", () => navigateTo("views/report/create.html"));
+    ipcMain.on("report-edit", (event, item) => {
+        navigateTo("views/report/edit.html");
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.send('edit-report-data', item);
+        });
+    });
+    ipcMain.on("report-detail", (event, item) => {
+        navigateTo("views/report/detail.html");
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.send('view-report-data', item);
+        });
+    });
+    // end router report
+
+    ipcMain.on("open-change-password", () => navigateTo("views/change-password.html"));
+    ipcMain.on('export-excel', (event, data) => {
+        try {
+            // Chuyển data JSON thành worksheet
+            const worksheet = XLSX.utils.json_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Danh sách');
+
+            // Hiển thị hộp thoại để chọn nơi lưu file
+            dialog.showSaveDialog({
+                title: 'Lưu file Excel',
+                defaultPath: path.join(app.getPath('desktop'), 'data.xlsx'),
+                filters: [{ name: 'Excel Files', extensions: ['xlsx'] }]
+            }).then((file) => {
+                if (!file.canceled) {
+                    XLSX.writeFile(workbook, file.filePath);
+                    event.sender.send('export-success', 'Xuất Excel thành công!');
+                }
+            }).catch((err) => {
+                console.error('Lỗi khi lưu file:', err);
+                event.sender.send('export-failed', 'Xuất Excel thất bại!');
+            });
+        } catch (error) {
+            console.error('Lỗi khi xuất Excel:', error);
+            event.sender.send('export-failed', 'Xuất Excel thất bại!');
+        }
+    });
+
+    ipcMain.on('import-excel', (event) => {
+        dialog.showOpenDialog({
+            title: 'Chọn file Excel',
+            filters: [{ name: 'Excel Files', extensions: ['xlsx', 'xls'] }],
+            properties: ['openFile']
+        }).then((file) => {
+            if (!file.canceled) {
+                const workbook = XLSX.readFile(file.filePaths[0]);
+                const sheetName = workbook.SheetNames[0];
+                const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                event.sender.send('import-success', data);
+            }
+        }).catch((err) => {
+            console.error('Lỗi khi nhập file:', err);
+            event.sender.send('import-failed', 'Nhập Excel thất bại!');
+        });
+    });
+    // 📌 Xử lý quay lại trang trước
+    ipcMain.on("go-back", () => {
+        if (historyStack.length > 1) {
+            historyStack.pop(); // Xóa trang hiện tại khỏi stack
+            const prevPage = historyStack[historyStack.length - 1]; // Lấy trang trước đó
+            mainWindow.loadFile(prevPage);
+        }
+    });
+    ipcMain.on("logout", () => {
+        historyStack = [];
+        mainWindow.loadFile('views/login.html');
+    });
+    app.on('window-all-closed', () => {
+        if (process.platform !== 'darwin') {
+            app.quit();
+        }
+    });
+});

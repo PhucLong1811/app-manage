@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    /* width: 550pt; */
+    /* margin-left: -1.5cm; */
+}
+
+th, td {
+    border: 0;
+    padding: 5px;
+    text-align: left;
+    border: 1px solid black;
+}
+
+th {
+    font-weight: bold;
+    text-align: center;
+}
+td {
+    text-align: center;
+}
+.card-detail {
+    min-height: 841.89pt;
+    height: 100%;
+}
+.cardFooter .note {
+    margin-top: 10px;
+}
+#document .cardHeader .centerHeader {
+    position: relative;
+}
+#document .cardHeader .centerHeader .areaSampleTGI{
+    position: absolute;
+    right: -170px;
+    top: -12px;
+    font-size: 9pt;
+    text-align: center;
+}

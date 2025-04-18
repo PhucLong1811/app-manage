@@ -1,0 +1,19 @@
+#document .cardHeader {
+    position: relative;
+}
+#document .cardHeader .areaSampleTGI{
+    position: absolute;
+    right: -40px;
+    top: -55px;
+    font-size: 9pt;
+    text-align: center;
+}
+#document .cardBody .cardInfo .areaInfo {
+    margin-bottom: 5px;
+}
+#document .cardBody {
+    margin-bottom: 20px;
+}
+.cardFooter .note {
+    margin-top: 0;
+}

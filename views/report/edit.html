@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo mới biểu mẫu</title>
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/report/create.css">
+    <script src="../../node_modules/tinymce/tinymce.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" class="btnBack"><img src="../../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="card">
+                <form id="editForm" class="areaForm">
+                    <input type="hidden" id="margin-top" name="margin-top" value="2.5"/>
+                    <input type="hidden" id="margin-right" name="margin-right" value="2.5"/>
+                    <input type="hidden" id="margin-bottom" name="margin-bottom" value="2.5"/>
+                    <input type="hidden" id="margin-left" name="margin-left" value="2.5"/>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="label" for="title">Tên biểu mẫu:</label>
+                            <div class="wrapInput">
+                                <input type="text" id="title" class="inputStyle" name="title"
+                                    placeholder="Nhập tên biểu mẫu">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="editorReport">Nội dung biểu mẫu:</label>
+                            <div class="wrapInput">
+                                <textarea id="editorReport" name="editorReport"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-secondary btnBack">Huỷ bỏ</button>
+                        <button type="submit" class="btn btn-primary float-right">Lưu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../../renderer/report/edit.js"></script>
+</body>
+
+</html>

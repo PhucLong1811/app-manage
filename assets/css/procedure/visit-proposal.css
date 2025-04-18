@@ -1,0 +1,17 @@
+.areaSalutation {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.areaSalutation label {
+    font-style: italic;
+}
+.areaSalutation .contentSalutation span{
+    display: block;
+}
+#document .cardBody .cardInfo .areaInfo {
+    margin-bottom: 8px;
+}
+#document .cardBody {
+    margin-bottom: 20px;
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xuất Excel</title>
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/criminals/filter-export-excel.css">
+</head>
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" class="btnBack"><img src="../../assets/images/icon/icon-back.svg" alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnExportExcel">Xuất Excel</a></li>
+                    <li><a href="javascript:void(0)" id="btnExportPdf">Xuất PDF</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="card">
+                <form id="createForm" class="areaForm">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="label" for="sortName">Sắp xếp tên:</label>
+                            <div class="wrapInput">
+                                <Select class="inputStyle" id="sortName" class="inputStyle" name="sortName" >
+                                    <option value="" disabled selected>Chọn sắp xếp tên</option>
+                                    <option value="A">A -> Z</option>
+                                    <option value="Z">Z -> A</option>
+                                </Select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="filterZone">Khu:</label>
+                            <div class="wrapInput">
+                                <Select class="inputStyle" id="filterZone" class="inputStyle" name="filterZone" >
+                                    <option value="" disabled selected>Chọn khu</option>
+                                </Select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="filterCell">Buồng:</label>
+                            <div class="wrapInput">
+                                <Select class="inputStyle" id="filterCell" class="inputStyle" name="filterCell" >
+                                    <option value="" disabled selected>Chọn buồng</option>
+                                </Select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label" for="filterNoVisit">Cấm gặp:</label>
+                            <div class="wrapInput">
+                                <Select class="inputStyle" id="filterNoVisit" class="inputStyle" name="filterNoVisit" >
+                                    <option value="" disabled selected>Chọn cấm gặp</option>
+                                </Select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- <div id="textPdf" class="card card-detail">
+                <div id="document">
+                    <div class="cardBody">
+                        <div class="areaTitle">
+                            <h2 class="title">Danh sách người bị tạm giữ, tạm giam thăm gặp thân nhân</h2>
+                        </div>
+                        <table id="listVisitUser">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Họ</th>
+                                    <th>Tên</th>
+                                    <th>Giới tính</th>
+                                    <th>Năm sinh</th>
+                                    <th>Dân tộc</th>
+                                    <th>Quốc tịch</th>
+                                    <th>Quê quán</th>
+                                    <th>HKTT</th>
+                                    <th>Khu</th>
+                                    <th>Buồng</th>
+                                    <th>Tội</th>
+                                    <th>Ngày bắt</th>
+                                    <th>Ngày nhập</th>
+                                    <th>Lệnh</th>
+                                    <th>Đơn vị thụ lý</th>
+                                    <th>NX</th>
+                                    <th>Cấm thăm gặp</th>
+                                    <th>Bệnh</th>
+                                    <th>Ghi chú</th>
+                                    <th>Gặp</th>
+                                    <th>Gửi</th>
+                                    <th>Gửi 2</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <script src="../../renderer/criminals/filter-export-excel.js"></script>
+</body>
+</html>

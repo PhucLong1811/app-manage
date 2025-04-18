@@ -1,0 +1,21 @@
+.areaDetail {
+    width: 950px;
+    margin: 50px auto;
+}
+.areaDetail .areaInfo{
+    display: flex;
+    margin-bottom: 15px;
+}
+.areaDetail .areaInfo .label {
+    width: 20%;
+    font-weight: bold;
+    font-size: 16px;
+    padding-top: calc(0.375rem + 1px);
+    padding-bottom: calc(0.375rem + 1px);
+}
+.areaDetail .areaInfo .info {
+    width: 80%;
+    font-size: 16px;
+    padding-top: calc(0.375rem + 1px);
+    padding-bottom: calc(0.375rem + 1px);
+}

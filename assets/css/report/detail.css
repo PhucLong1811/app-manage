@@ -1,0 +1,42 @@
+.card {
+    width: 21cm;
+    min-height: 29.7cm;
+    height: 100%;
+    padding: 0;
+}
+#selectMarginFile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 21cm;
+    margin: 0 auto;
+    column-gap: 10px;
+}
+#selectMarginFile .areaInput {
+    display: flex;
+    align-items: center;
+}
+#selectMarginFile .areaInput label {
+    width: 35%;
+}
+#selectMarginFile .areaInput input {
+    width: 65%;
+    text-align: center;
+    display: block;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 1px solid;
+    color: #768192;
+    background-color: #fff;
+    border-color: #d8dbe0;
+    border-radius: 0.25rem;
+    transition: border-color 0.15sease -in-out, box-shadow 0.15sease -in-out;
+}
+#areaReport {
+    padding: 2.5cm;
+    margin-top: 10px;
+}

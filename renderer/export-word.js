@@ -5,7 +5,6 @@ const $ = require('jquery');
 const { saveAs } = require('file-saver');
 const { Document, Packer, Paragraph, TextRun } = require('docx');
 const $ = require('jquery');
-const fs = require('fs');
 // Sự kiện xuất file Word
 $('#exportWord').click(async function () {
     const receiver = $('#receiver').val();

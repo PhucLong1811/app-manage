@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách người bị TG/TG</title>
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
+    <link rel="stylesheet" href="../../assets/css/procedure/export-list-visit-user.css">
+    <script src="../../node_modules/tinymce/tinymce.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+                <ul class="mainMenu">
+                    <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
+                    <li><a href="javascript:void(0)" id="exportListVisit"
+                            data-title="Danh sách người bị TG/TG">Xuất PDF</a></li>
+                    <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="inner">
+            <div class="filterUser">
+                <select name="" id="selectPrisoner" class="selectStyle">
+                    <option value="">Chọn phạm nhân</option>
+                </select>
+            </div>
+            <div id="textPdf" class="card card-detail">
+                <div id="document">
+                    <div class="cardBody">
+                        <div class="areaTitle">
+                            <h2 class="title">Danh sách người bị tạm giữ, tạm giam thăm gặp thân nhân</h2>
+                            <p class="subTitle">(Kèm theo Quyết định từ số&nbsp;.........&nbsp;đến số&nbsp;.........&nbsp;ngày&nbsp;<input type="text" class="inputStyle small-30"/>&nbsp;tháng&nbsp;<input type="text" class="inputStyle small-30"/>&nbsp;năm&nbsp;<input type="text" class="inputStyle small-30"/>&nbsp; của Giám thị Trại tạm giam Công an thành phố Huế)</p>
+                        </div>
+                        <table id="listVisitUser">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Họ</th>
+                                    <th>Tên</th>
+                                    <th>Năm sinh</th>
+                                    <th>Buồng giam</th>
+                                    <th>Hành vi phạm tội</th>
+                                    <th>Ngày bắt</th>
+                                    <th>Nơi ĐKHKTT</th>
+                                    <th>Số QĐ thăm gặp</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="cardFooter">
+                        <div class="signature">
+                            <p class="txt-italic">Thừa Thiên Huế, ngày&nbsp;<input type="text" class="inputStyle small-30" >&nbsp;tháng&nbsp;<input type="text" class="inputStyle small-30" >&nbsp;năm&nbsp;<input type="text" class="inputStyle small-50" >&nbsp;</p>
+                            <div class="areaSignature">
+                                <h3 class="titleSignature">Giám thị</h3>
+                                <div class="contentSignature"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../renderer/procedure/detail.js"></script>
+    <script src="../../renderer/procedure/export-list-visit-user.js"></script>
+    <!-- <script src="../../renderer/export-word.js"></script> -->
+</body>
+
+</html>

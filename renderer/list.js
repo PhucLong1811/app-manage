@@ -4,7 +4,6 @@ const path = require('path');
 const $ = require('jquery');
 const moment = require('moment');
 const pdfMake = require('pdfmake/build/pdfmake');
-const pdfFonts = require('pdfmake/build/vfs_fonts');
 const Swal = require('sweetalert2');
 
 const dataFilePath = path.join(__dirname, '..', 'data', 'data.json');
@@ -228,6 +227,10 @@ $(document).ready(function () {
                 }
                 let table = $('#dataTable').DataTable();
                 table.row($(`.delete-btn[data-id="${id}"]`).parents('tr')).remove().draw();
+                // Cập nhật lại STT trong bảng
+                $('#dataTable tbody tr').each((index, row) => {
+                    $(row).find('td:first').text(index + 1);
+                });
             });
         });
     }

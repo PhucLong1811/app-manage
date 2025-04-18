@@ -1,0 +1,77 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 9pt;
+    /* width: 550pt; */
+    /* margin-left: -1.5cm; */
+}
+
+th, td {
+    border: 0;
+    padding: 5px;
+    text-align: left;
+    border: 1px solid black;
+}
+
+th {
+    font-weight: bold;
+    text-align: center;
+}
+td {
+    text-align: center;
+}
+@media print {
+    table {
+      page-break-inside: auto;
+    }
+  
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+  
+    thead {
+      display: table-header-group;
+    }
+  
+    tfoot {
+      display: table-footer-group;
+    }
+  }
+.card-detail {
+    width: 297mm;
+    padding: 0;
+}
+.filterUser {
+    margin-bottom: 10px;
+}
+#document {
+    font-family: "Times New Roman", Times, serif;
+    border-radius: 10px;
+    padding: 2cm 1.5cm 1.5cm 1.5cm;
+    width: 297mm;
+}
+#document .cardBody .areaTitle {
+    margin-bottom: 20px;
+    text-align: center;
+}
+#document .cardBody .areaTitle .title {
+    text-align: center;
+    font-size: 13pt;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+#document .cardBody .areaTitle .subTitle {
+    font-size: 13pt;
+    font-weight: 500;
+}
+.cardFooter .signature {
+    display: block;
+    justify-content: flex-end;
+    float: right;
+    margin-top: 20px;
+}
+.cardFooter .signature .areaSignature {
+    margin-top: 15px;
+}

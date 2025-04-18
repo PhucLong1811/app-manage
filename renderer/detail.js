@@ -1,11 +1,7 @@
-const fs = require('fs');
-const { saveAs } = require('file-saver');
-const { Document, Packer, Paragraph, TextRun } = require('docx');
 const $ = require('jquery');
 const { ipcRenderer } = require('electron');
 const path = require('path');
 const moment = require('moment');
-const html2pdf = require("html2pdf.js");
 
 const dataFilePath = path.join(__dirname, '..', 'data', 'data.json');
 const dataUserPath = path.join(__dirname, '..', 'data', 'user.json');
