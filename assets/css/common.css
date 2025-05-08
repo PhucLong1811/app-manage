@@ -15,12 +15,14 @@
 
 
 body {
-    background-color: #FFFFFF;
+    background-color: #F5F5F5;
     font-size: 14px;
     line-height: 1.5;
     color: #000000;
 }
-
+.dataTables_wrapper .dataTables_filter input {
+    background-color: #FFFFFF !important;
+}
 body.fixed {
     overflow: hidden;
 }
@@ -50,19 +52,27 @@ body.fixed {
 
 /* HEADER */
 #header {
-    width: 100%;
     margin-bottom: 50px;
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    box-shadow: 0px 0px 15px 0px rgba(96, 96, 96, 14%);
+    z-index: 999;
+    border-top: 3px solid #29378B;
+}
+#fixH {
+    height: 120px;
 }
 
 #header .headerTitle {
     font-size: 34px;
     line-height: 41px;
     padding: 30px 0 15px;
-    border-bottom: 1px solid #ECECEC;
+    /* border-bottom: 1px solid #ECECEC; */
 }
 #header .hdMenu {
     padding: 30px 0 15px;
-    border-bottom: 1px solid #ECECEC;
+    /* border-bottom: 1px solid #ECECEC; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,8 +110,8 @@ body.fixed {
     transition: all .3s;
 }
 #header .hdMenu .mainMenu li a .icon {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
 }
 #header .hdMenu .mainMenu li a:hover .icon {

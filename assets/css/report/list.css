@@ -20,16 +20,32 @@ button {
 .areaTable #dataTable_wrapper {
     overflow-x: auto;
 }
-table {
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 15px;
+}
+table.dataTable {
     width: 100%;
     margin: auto;
     border-collapse: collapse;
+    background-color: #FFFFFF;
 }
 table.dataTable thead th { 
     text-align: center;
 }
+table.dataTable th {
+    background: #4167AF;
+    color: #FFFFFF;
+}
+table.dataTable tbody tr {
+    background-color: #EBF9FF; 
+}
+
+/* table.dataTable tbody tr:nth-child(even) {
+background-color: #F9FAFB;
+} */
 th, td {
     padding: 10px;
+    border: 1px solid #ccc;
 }
 table.dataTable tbody td {
     text-align: center;

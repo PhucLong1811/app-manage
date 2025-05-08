@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách người bị tạm giam</title>
+    <link href="../../vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
+    <link rel="stylesheet" href="../../assets/css/procedure/export-list-detainee.css">
+    <script src="../../node_modules/tinymce/tinymce.min.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="inner">
+            <div class="hdMenu">
+                <ul class="mainMenu">
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
+                </ul>
+                <ul class="mainMenu">
+                    <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
+                    <li><a href="javascript:void(0)" id="exportListDetainee"
+                            data-title="Danh sách người bị TG/TG"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a></li>
+                    <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="fixH"></div>
+    <div id="content">
+        <div class="inner">
+            <div class="filterUser">
+                <select name="" id="selectPrisoner" class="selectStyle select2" multiple="multiple">
+                    <option value="">Chọn phạm nhân</option>
+                </select>
+            </div>
+            <div id="textPdf" class="card card-detail">
+                <div id="document">
+                    <div class="cardBody">
+                        <div class="areaTitle">
+                            <h2 class="title">Danh sách người bị tạm giam</h2>
+                            <p class="subTitle">(Kèm theo biên bản giao nhận ngày&nbsp;<input type="text" class="inputStyle small-90"/>&nbsp;)</p>
+                        </div>
+                        <table id="listDetaineeUser">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Họ và tên</th>
+                                    <th>Giới tính</th>
+                                    <th>Năm sinh</th>
+                                    <th>Quê quán</th>
+                                    <th>Nơi DKHKTT</th>
+                                    <th>Dân tộc</th>
+                                    <th>Quốc tịch</th>
+                                    <th>Hành vi phạm tội</th>
+                                    <th>Bắt ngày</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="cardFooter">
+                        <div class="signature">
+                            <div class="areaSignature">
+                                <h3 class="titleSignature">Giám thị</h3>
+                                <div class="contentSignature"></div>
+                            </div>
+                            <div class="areaSignature">
+                                <h3 class="titleSignature">Bên giao</h3>
+                                <p class="subTitleSignature">(Ký, ghi rõ họ tên)</p>
+                                <div class="contentSignature"></div>
+                                <h3 class="fullNameSignature">
+                                    <input type="text" class="inputStyle" value="" placeholder="Họ và tên">
+                                </h3>
+                            </div>
+                            <div class="areaSignature">
+                                <h3 class="titleSignature">Bên nhận</h3>
+                                <p class="subTitleSignature">(Ký, ghi rõ họ tên)</p>
+                                <div class="contentSignature"></div>
+                                <h3 class="fullNameSignature">
+                                    <input type="text" class="inputStyle" value="" placeholder="Họ và tên">
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
+    <script src="../../renderer/procedure/detail.js"></script>
+    <script src="../../renderer/procedure/export-list-detainee.js"></script>
+    <!-- <script src="../../renderer/export-word.js"></script> -->
+</body>
+
+</html>

@@ -1,7 +1,18 @@
+#header{
+    margin-bottom: 0;
+}
+#fixH {
+    height: 50px;
+}
+#content {
+    margin-bottom: 0;
+}
 .areaBtn {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
+    justify-content: center;
+    margin-top: 300px;
 }
 .areaBtn .btnStyle {
     width: 145px;

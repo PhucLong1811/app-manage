@@ -11,3 +11,6 @@
 #document .cardBody .cardInfo .areaInfo {
     margin-bottom: 5px;
 }
+.cardFooter .signature {
+    margin: 0;
+}

@@ -1,4 +1,5 @@
-const $ = require('jquery');
+// const $ = require('jquery');
+// require('select2');
 const { ipcRenderer } = require('electron');
 const path = require('path');
 const moment = require('moment');
@@ -58,11 +59,14 @@ function updatePadding() {
     });
 }
 $(document).ready(function () {
+    $('.select2').select2({
+        placeholder: "Chọn phạm nhân",
+    });
     $('#btnBack').on('click', () => {
         ipcRenderer.send('procedure-list');
     });
     $("#selectMarginFile input").on("input", updatePadding);
-    $('#selectUserData').on('change',function(){
+    $('#selectUserData').on('change', function () {
         let id = $(this).val();
         loadUserData(id)
     })
@@ -80,46 +84,55 @@ $(document).ready(function () {
             $(this).replaceWith(`<span>${value}</span>`);
         });
 
-     
+
 
         // Đặt tempDiv ra khỏi viewport
         tempDiv.css({ position: "absolute", left: "-9999px" }).appendTo("body");
 
         // Chuyển HTML thành ảnh và xuất PDF
-        html2canvas(tempDiv[0]).then((canvas) => {
+        html2canvas(tempDiv[0], { scale: 3 }).then((canvas) => {
             const pdf = new jsPDF("p", "mm", "a4");
             const imgWidth = 210; // Chiều rộng trang A4 (mm)
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
             pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, imgWidth, imgHeight);
+            // In PDF thay vì tải xuống
+            pdf.autoPrint();  // Kích hoạt tính năng in
 
-            // ✅ Tạo Blob PDF để tải về ngay lập tức
-            const pdfBlob = pdf.output("blob");
-            const pdfUrl = URL.createObjectURL(pdfBlob);
-
-            // ✅ Tạo thẻ <a> để tải xuống và xóa sau khi sử dụng
-            const $a = $("<a>")
-                .attr({ href: pdfUrl, download: `${title}.pdf` })
-                .appendTo("body")
-                .get(0);
-
-            $a.click();
-            $($a).remove(); // Xóa thẻ <a> sau khi click
+            // Mở cửa sổ in ngay lập tức
+            window.open(pdf.output('bloburl'), '_blank');
 
             setTimeout(() => {
-                URL.revokeObjectURL(pdfUrl); // Giải phóng bộ nhớ
                 tempDiv.remove(); // Xóa phần tử tạm thời
+            }, 1000); // Đợi 1 giây để đảm bảo việc xử lý hoàn tất
+            
+            // // ✅ Tạo Blob PDF để tải về ngay lập tức
+            // const pdfBlob = pdf.output("blob");
+            // const pdfUrl = URL.createObjectURL(pdfBlob);
 
-                // ✅ Hiển thị thông báo khi tải xuống hoàn tất
-                // Swal.fire({
-                //     icon: "success",
-                //     title: "Thành công!",
-                //     text: "Tệp PDF đã được tải về!",
-                //     timer: 2000,
-                //     showConfirmButton: false
-                // });
+            // // ✅ Tạo thẻ <a> để tải xuống và xóa sau khi sử dụng
+            // const $a = $("<a>")
+            //     .attr({ href: pdfUrl, download: `${title}.pdf` })
+            //     .appendTo("body")
+            //     .get(0);
 
-            }, 1000); // Đợi 1 giây để đảm bảo tải xuống hoàn tất
+            // $a.click();
+            // $($a).remove(); // Xóa thẻ <a> sau khi click
+
+            // setTimeout(() => {
+            //     URL.revokeObjectURL(pdfUrl); // Giải phóng bộ nhớ
+            //     tempDiv.remove(); // Xóa phần tử tạm thời
+
+            //     // ✅ Hiển thị thông báo khi tải xuống hoàn tất
+            //     // Swal.fire({
+            //     //     icon: "success",
+            //     //     title: "Thành công!",
+            //     //     text: "Tệp PDF đã được tải về!",
+            //     //     timer: 2000,
+            //     //     showConfirmButton: false
+            //     // });
+
+            // }, 1000); // Đợi 1 giây để đảm bảo tải xuống hoàn tất
         }).catch(error => console.error("Lỗi khi xuất PDF:", error));
     });
     showUserDataBySelect();

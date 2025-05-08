@@ -5,6 +5,9 @@ const $ = require('jquery');
 require("jquery-validation");
 const moment = require('moment');
 const Swal = require('sweetalert2');
+const flatpickr = require('flatpickr');
+const { Vietnamese } = require('flatpickr/dist/l10n/vn.js');
+const monthSelectPlugin = require("flatpickr/dist/plugins/monthSelect/index.js");
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
@@ -24,7 +27,7 @@ function populateEditForm(item) {
     $('#last_name').val(item.last_name);
     $('#first_name').val(item.first_name);
     $('#gender').val(item.gender);
-    $('#birthdate').val(item.birthdate);
+    $('#birthdate').val(formatDateDMY(item.birthdate));
     $('#ethnicity').val(item.ethnicity);
     $('#nation').val(item.nation);
     $('#hometown').val(item.hometown);
@@ -32,16 +35,16 @@ function populateEditForm(item) {
     $('#zone').val(item.zone);
     $('#cell').val(item.cell);
     $('#offense').text(item.offense);
-    $('#arrest_date').val(item.arrest_date);
-    $('#prison_entry').val(item.prison_entry);
+    $('#arrest_date').val(formatDateDMY(item.arrest_date));
+    $('#prison_entry').val(formatDateDMY(item.prison_entry));
     $('#arrest_warrant').val(item.arrest_warrant);
     $('#handling_agency').val(item.handling_agency);
-    $('#comment').val(item.comment);
+    $('#comment').val(formatMonthMY(item.comment));
     $('#no_visit').val(item.no_visit);
     $('#disease').text(item.disease);
     $('#note').text(item.note);
-    $('#visit').val(item.visit);
-    $('#send').val(item.send);
+    $('#visit').val(formatDateDMY(item.visit));
+    $('#send').val(formatDateDMY(item.send));
     if(item.no_visit === 'Không'){
         !no_visit_date.hasClass('hide') && no_visit_date.addClass('hide')
         $('#no_visit_date').val('');
@@ -56,19 +59,27 @@ function populateEditForm(item) {
  * @param {string} dateStr - Ngày dưới dạng chuỗi 'DD/MM/YYYY'
  * @returns {string} - Ngày theo định dạng 'YYYY-MM-DD'
  */
-function formatDate(dateStr) {
+function formatDateYMD(dateStr) {
+    if (dateStr == '') return '';
     return moment(dateStr, 'DD/MM/YYYY').format('YYYY-MM-DD');
 }
-
+function formatMonthYM(dateStr) {
+    if (dateStr == '') return '';
+    return moment(dateStr, 'MM/YYYY').format('YYYY-MM');
+}
 /**
  * Chuyển đổi ngày từ 'YYYY-MM-DD' về 'DD/MM/YYYY' để lưu vào JSON
  * @param {string} dateStr - Ngày dưới dạng chuỗi 'YYYY-MM-DD'
  * @returns {string} - Ngày theo định dạng 'DD/MM/YYYY'
  */
-function formatDateForSave(dateStr) {
+function formatDateDMY(dateStr) {
+    if (dateStr == '') return '';
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
 }
-
+function formatMonthMY(dateStr) {
+    if (dateStr == '') return '';
+    return moment(dateStr, 'YYYY-MM').format('MM/YYYY');
+}
 /**
  * Cập nhật dữ liệu item vào JSON
  */
@@ -90,15 +101,34 @@ function updateItemData() {
                 return;
             }
             const formDataArray = $('#editForm').serializeArray();
+            const formattedData = formDataArray.map(({ name, value }) => {
+                switch (name) {
+                    case 'birthdate':
+                    case 'arrest_date':
+                    case 'prison_entry':
+                    case 'visit':
+                    case 'send':
+                        return {
+                            name,
+                            value: formatDateYMD(value)
+                        };
+                    case 'comment':
+                        return {
+                            name,
+                            value: formatMonthYM(value)
+                        };
+                    default:
+                        return { name, value };
+                }
+            });
             jsonData[itemIndex] = {
                 id: parseInt(currentId),
                 created_by_user: dataUser?.user_id ?? "",
                 created_at: dataUser?.created_at ?? "",
                 updated_by_user: user ? user.id : "",
                 updated_at: Date.now(),
-                ...Object.fromEntries(formDataArray.map(({ name, value }) => [name, value]))
+                ...Object.fromEntries(formattedData.map(({ name, value }) => [name, value]))
             };
-
             // Ghi đè vào file JSON
             fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
                 if (err) {
@@ -106,6 +136,7 @@ function updateItemData() {
                     return;
                 }
                 sessionStorage.removeItem('currentId');
+                sessionStorage.removeItem('currentNoVisitDate');
                 Swal.fire({
                     icon: 'success',
                     title: 'Cập nhật thành công!',
@@ -129,11 +160,27 @@ ipcRenderer.on('edit-item', (event, item) => {
 
 // Khởi tạo validate form và xử lý submit
 $(document).ready(function () {
+    flatpickr(".inputDate", {
+        locale: Vietnamese,
+        dateFormat: "d/m/Y"
+    });
+    flatpickr(".inputMonth", {
+        locale: Vietnamese,
+        dateFormat: "m/Y", // hiển thị tháng/năm
+        plugins: [
+            monthSelectPlugin({
+                shorthand: true,
+                dateFormat: "m/Y",
+                altFormat: "F Y"
+            })
+        ]
+    });
     const storedId = sessionStorage.getItem('currentId');
     const noVisitDate = sessionStorage.getItem('currentNoVisitDate');
     // Quay lại danh sách
     $('.btnBack').on('click', () => {
         sessionStorage.removeItem('currentId');
+        sessionStorage.removeItem('currentNoVisitDate');
         ipcRenderer.send('go-back')
     });
 
@@ -141,7 +188,7 @@ $(document).ready(function () {
         const no_visit_date = $('#no_visit_date').closest('.form-group')
         if(event.target.value === 'Không'){
             !no_visit_date.hasClass('hide') && no_visit_date.addClass('hide')
-            $('#no_visit_date').val(noVisitDate)
+            $('#no_visit_date').val("")
         } else {
             no_visit_date.removeClass('hide');
             $('#no_visit_date').val(noVisitDate)
@@ -167,7 +214,7 @@ $(document).ready(function () {
         });
     }
     $.validator.addMethod("validAge", function (value, element) {
-        var birthDate = new Date(value); // Chuyển đổi input thành ngày tháng
+        var birthDate = new Date(formatDateYMD(value)); // Chuyển đổi input thành ngày tháng
         var today = new Date();
         var age = today.getFullYear() - birthDate.getFullYear(); // Tính số năm
 
@@ -180,7 +227,8 @@ $(document).ready(function () {
         return this.optional(element) || age >= 16;
     }, "Người dùng phải ít nhất 16 tuổi");
     $.validator.addMethod("validDate", function (value, element) {
-        var inputDate = new Date(value); // Chuyển đổi input thành ngày tháng
+        var inputDate = new Date(formatDateYMD(value)); // Chuyển đổi input thành ngày tháng
+        console.log(value,'value')
         var today = new Date();
 
         // Kiểm tra nếu inputDate lớn hơn ngày hôm nay thì không hợp lệ

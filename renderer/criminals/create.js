@@ -6,10 +6,53 @@ require("jquery-validation");
 const moment = require('moment');
 const Swal = require('sweetalert2');
 const user = JSON.parse(sessionStorage.getItem("user"));
+const flatpickr = require('flatpickr');
+const { Vietnamese } = require('flatpickr/dist/l10n/vn.js');
+const monthSelectPlugin = require("flatpickr/dist/plugins/monthSelect/index.js");
 
 const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
-
+/**
+ * Chuyển đổi ngày từ 'DD/MM/YYYY' sang 'YYYY-MM-DD' (phù hợp với input[type=date])
+ * @param {string} dateStr - Ngày dưới dạng chuỗi 'DD/MM/YYYY'
+ * @returns {string} - Ngày theo định dạng 'YYYY-MM-DD'
+ */
+function formatDateYMD(dateStr) {
+    if (dateStr == '') return '';
+    return moment(dateStr, 'DD/MM/YYYY').format('YYYY-MM-DD');
+}
+function formatMonthYM(dateStr) {
+    if (dateStr == '') return '';
+    return moment(dateStr, 'MM/YYYY').format('YYYY-MM');
+}
+/**
+ * Chuyển đổi ngày từ 'YYYY-MM-DD' về 'DD/MM/YYYY' để lưu vào JSON
+ * @param {string} dateStr - Ngày dưới dạng chuỗi 'YYYY-MM-DD'
+ * @returns {string} - Ngày theo định dạng 'DD/MM/YYYY'
+ */
+function formatDateDMY(dateStr) {
+    if (dateStr == '') return '';
+    return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
+}
+function formatMonthMY(dateStr) {
+    if (dateStr == '') return '';
+    return moment(dateStr, 'YYYY-MM').format('MM/YYYY');
+}
 $(document).ready(function () {
+    flatpickr(".inputDate", {
+        locale: Vietnamese,
+        dateFormat: "d/m/Y"
+    });
+    flatpickr(".inputMonth", {
+        locale: Vietnamese,
+        dateFormat: "m/Y", // hiển thị tháng/năm
+        plugins: [
+            monthSelectPlugin({
+                shorthand: true,
+                dateFormat: "m/Y",
+                altFormat: "F Y"
+            })
+        ]
+    });
     $(".btnBack").click(function () {
         ipcRenderer.send('open-list');
     });
@@ -23,7 +66,7 @@ $(document).ready(function () {
         }
     })
     $.validator.addMethod("validAge", function (value, element) {
-        var birthDate = new Date(value); // Chuyển đổi input thành ngày tháng
+        var birthDate = new Date(formatDateYMD(value)); // Chuyển đổi input thành ngày tháng
         var today = new Date();
         var age = today.getFullYear() - birthDate.getFullYear(); // Tính số năm
 
@@ -36,7 +79,7 @@ $(document).ready(function () {
         return this.optional(element) || age >= 16;
     }, "Người dùng phải ít nhất 16 tuổi");
     $.validator.addMethod("validDate", function (value, element) {
-        var inputDate = new Date(value); // Chuyển đổi input thành ngày tháng
+        var inputDate = new Date(formatDateYMD(value)); // Chuyển đổi input thành ngày tháng
         var today = new Date();
 
         // Kiểm tra nếu inputDate lớn hơn ngày hôm nay thì không hợp lệ
@@ -117,13 +160,33 @@ $(document).ready(function () {
         },
         submitHandler: function (form) {
             const formDataArray = $('#createForm').serializeArray();
+            const formattedData = formDataArray.map(({ name, value }) => {
+                switch (name) {
+                    case 'birthdate':
+                    case 'arrest_date':
+                    case 'prison_entry':
+                    case 'visit':
+                    case 'send':
+                        return {
+                            name,
+                            value: formatDateYMD(value)
+                        };
+                    case 'comment':
+                        return {
+                            name,
+                            value: formatMonthYM(value)
+                        };
+                    default:
+                        return { name, value };
+                }
+            });
             const newItem = {
                 id: Date.now(),
                 created_by_user: user?.id || "",
                 created_at: Date.now(),
                 updated_by_user: "",
                 updated_at: "",
-                ...Object.fromEntries(formDataArray.map(({ name, value }) => [name, value]))
+                ...Object.fromEntries(formattedData.map(({ name, value }) => [name, value]))
             };
 
             fs.readFile(dataFilePath, 'utf8', (err, data) => {

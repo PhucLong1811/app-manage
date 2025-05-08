@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Quyết định thăm gặp</title>
+    <link href="../../vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
@@ -21,16 +22,17 @@
                 </ul>
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
-                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Quyết định thăm gặp">Xuất PDF</a></li>
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Quyết định thăm gặp"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a></li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div class="filterUser">
-                <select name="" id="selectUserData" class="selectStyle">
+                <select name="" id="selectUserData" class="selectStyle select2">
                     <option value="">Chọn phạm nhân</option>
                 </select>
             </div>
@@ -90,14 +92,16 @@
                         <div class="cardInfo">
                             <div class="areaInfo">
                                 <p class="txt txt-italic">
-                                    &emsp;&emsp;&emsp;Căn cứ Điều 13 Luật thi hành tạm giữ, tạm giam quy định nhiệm vụ,
-                                    quyền
-                                    hạn của nhà tạm giữ, trại tạm giam;
+                                    &emsp;&emsp;&emsp;Căn cứ Điều&nbsp;<input type="text" class="inputStyle small-30"
+                                        value="13">&nbsp;Luật thi hành tạm giữ, tạm giam quy định nhiệm vụ,
+                                    quyền hạn của nhà tạm giữ, trại tạm giam;
                                 </p>
                             </div>
                             <div class="areaInfo">
                                 <p class="txt txt-italic">
-                                    &emsp;&emsp;&emsp;Căn cứ khoản 1,2,3,5 Điều 22 Luật thi hành tạm giữ, tạm giam quy
+                                    &emsp;&emsp;&emsp;Căn cứ khoản&nbsp;<input type="text" class="inputStyle small-100"
+                                    value="1,2,3,5">&nbsp;Điều&nbsp;<input type="text" class="inputStyle small-30"
+                                    value="22">&nbsp;Luật thi hành tạm giữ, tạm giam quy
                                     định
                                     việc gặp người thân nhân, người bào chữa, tiếp xúc lãnh sự của người bị tạm giữ,
                                     người bị tạm giam;
@@ -219,7 +223,10 @@
             </div>
         </div>
     </div>
-
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->
 </body>

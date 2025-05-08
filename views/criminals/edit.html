@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Chỉnh sửa</title>
+    <link rel="stylesheet" href="../../node_modules/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" href="../../node_modules/flatpickr/dist/plugins/monthSelect/style.css" />
     <link rel="stylesheet" href="../../assets/css/common.css">
 </head>
 
@@ -17,6 +19,7 @@
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div class="card">
@@ -47,7 +50,7 @@
                         <div class="form-group">
                             <label class="label" for="birthdate">Ngày sinh: <span class="require">*</span></label>
                             <div class="wrapInput">
-                                <input type="date" id="birthdate" class="inputStyle" name="birthdate" placeholder="Nhập ngày sinh">
+                                <input type="date" id="birthdate" class="inputStyle inputDate" name="birthdate" placeholder="Nhập ngày sinh">
                             </div>
                         </div>
                         <div class="form-group">
@@ -96,13 +99,13 @@
                         <div class="form-group">
                             <label class="label" for="arrest_date">Ngày bắt: <span class="require">*</span></label>
                             <div class="wrapInput">
-                                <input type="date" id="arrest_date" class="inputStyle" name="arrest_date" placeholder="Nhập ngày bắt">
+                                <input type="date" id="arrest_date" class="inputStyle inputDate" name="arrest_date" placeholder="Nhập ngày bắt">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="label" for="prison_entry">Ngày nhập: <span class="require">*</span></label>
                             <div class="wrapInput">
-                                <input type="date" id="prison_entry" class="inputStyle" name="prison_entry" placeholder="Nhập ngày nhập">
+                                <input type="date" id="prison_entry" class="inputStyle inputDate" name="prison_entry" placeholder="Nhập ngày nhập">
                             </div>
                         </div>
                         <div class="form-group">
@@ -120,7 +123,7 @@
                         <div class="form-group">
                             <label class="label" for="comment">Nhận xét:</label>
                             <div class="wrapInput">
-                                <input type="month" id="comment" class="inputStyle" name="comment" placeholder="Nhập nhận xét">
+                                <input type="month" id="comment" class="inputStyle inputMonth" name="comment" placeholder="Nhập nhận xét">
                             </div>
                         </div>
                         <div class="form-group">
@@ -153,13 +156,13 @@
                         <div class="form-group">
                             <label class="label" for="visit">Gặp:</label>
                             <div class="wrapInput">
-                                <input type="date" id="visit" class="inputStyle" name="visit" placeholder="Nhập gặp">
+                                <input type="date" id="visit" class="inputStyle inputDate" name="visit" placeholder="Nhập gặp">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="label" for="send">Gửi:</label>
                             <div class="wrapInput">
-                                <input type="date" id="send" class="inputStyle" name="send" placeholder="Nhập gửi">
+                                <input type="date" id="send" class="inputStyle inputDate" name="send" placeholder="Nhập gửi">
                             </div>
                         </div>
                     </div>

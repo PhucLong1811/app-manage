@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Biên bản nhận xét</title>
+    <link href="../../vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
@@ -21,16 +22,17 @@
                 </ul>
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
-                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản nhận xét">Xuất PDF</a></li>
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản nhận xét"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a></li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div class="filterUser">
-                <select name="" id="selectUserData" class="selectStyle">
+                <select name="" id="selectUserData" class="selectStyle select2">
                     <option value="">Chọn phạm nhân</option>
                 </select>
             </div>
@@ -153,7 +155,7 @@
                                     (Từ ngày&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input type="text" class="inputStyle small-50">&nbsp;đến ngày&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input type="text" class="inputStyle small-50">)
                                 </div>
                             </div>
-                            <div class="areaInfo">
+                            <!-- <div class="areaInfo">
                                 <p>- Diễn biến tư tưởng: An tâm tư tưởng</p>
                             </div>
                             <div class="areaInfo">
@@ -161,6 +163,24 @@
                             </div>
                             <div class="areaInfo">
                                 <p>- Những dấu hiệu cần chú ý: Không</p>
+                            </div> -->
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="prison_entry" class="label">- Diễn biến tư tưởng:</p>
+                                    <input type="text" class="inputStyle" value="An tâm tư tưởng">
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="prison_entry" class="label">- Việc chấp hành nội quy cơ sở giam giữ:</p>
+                                    <input type="text" class="inputStyle" value="Chấp hành tốt nội quy cơ sở giam giữ.">
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="info">
+                                    <p for="prison_entry" class="label">- Những dấu hiệu cần chú ý:</p>
+                                    <input type="text" class="inputStyle" value="Không">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -187,7 +207,10 @@
             </div>
         </div>
     </div>
-
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->
 </body>

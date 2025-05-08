@@ -7,10 +7,10 @@ const pdfMake = require('pdfmake/build/pdfmake');
 const pdfFonts = require('pdfmake/build/vfs_fonts');
 pdfMake.fonts = {
     TimesNewRoman: {
-      normal: 'Times New Roman.ttf',
-      bold: 'Times New Roman Bold.ttf',
-      italics: 'Times New Roman Italic.ttf',
-      bolditalics: 'Times New Roman Bold Italic.ttf',
+        normal: 'Times New Roman.ttf',
+        bold: 'Times New Roman Bold.ttf',
+        italics: 'Times New Roman Italic.ttf',
+        bolditalics: 'Times New Roman Bold Italic.ttf',
     },
 };
 const Swal = require('sweetalert2');
@@ -28,21 +28,25 @@ function formatDateYMD(dateStr) {
 }
 function renderMenu() {
     const menuItems = [
-        { id: "btnCreate", label: "Tạo mới" },
-        { id: "logout", label: "Đăng xuất" }
+        { id: "btnCreate", label: "Tạo mới", icon: "../../assets/images/icon/create.svg" },
+        { id: "logout", label: "Đăng xuất", icon: "../../assets/images/icon/logout.svg" }
     ];
 
     if (user && user.role !== "user") {
         menuItems.splice(1, 0, // Chèn các mục Excel vào trước "Đăng xuất"
-            { id: "btnExportExcel", label: "Xuất Excel" },
-            { id: "btnImportExcel", label: "Nhập Excel" },
-            { id: "exportPdfBtn", label: "Xuất Pdf" },
-            { id: "filterExportExcel", label: "Lọc danh sách" }
+            { id: "btnRemoveAll", label: "Xoá tất cả dữ liệu", icon: "../../assets/images/icon/icon-remove-2.svg" },
+            { id: "btnImportExcel", label: "Nhập Excel", icon: "../../assets/images/icon/import-file.svg" },
+            { id: "btnExportExcel", label: "Xuất Excel", icon: "../../assets/images/icon/export-file.svg" },
+            // { id: "exportPdfBtn", label: "Xuất Pdf", icon: "../../assets/images/icon/export-file.svg" },
+            { id: "filterExportExcel", label: "Lọc danh sách", icon: "../../assets/images/icon/filter.svg" }
         );
     }
 
     menuItems.forEach(item => {
-        $('#menu').append(`<li><a href="javascript:void(0)" id="${item.id}">${item.label}</a></li>`);
+        $('#menu').append(`<li><a href="javascript:void(0)" id="${item.id}">
+            <img src="${item.icon}" class="icon"/>
+            ${item.label}</a>
+            </li>`);
     });
 }
 $(document).ready(function () {
@@ -50,6 +54,8 @@ $(document).ready(function () {
     const filterBuong = $("#filterBuong");
     const filterNoVisit = $("#filterNoVisit");
     const listCrimeZone = $('.listCrimeZone');
+    const listCrimeGender = $('.listCrimeGender');
+    const totalCrime = $('.totalCrime')
     $('#menu').on('click', '#btnCreate', () => ipcRenderer.send('open-create'));
     $('.mainMenu').on('click', '#btnBack', () => ipcRenderer.send('back-to-main'));
     $('#menu').on('click', '#filterExportExcel', () => ipcRenderer.send('open-filter-export-excel'));
@@ -62,24 +68,35 @@ $(document).ready(function () {
         try {
             let jsonData = JSON.parse(data);
             let zoneCountMap = {};
+            let genderCountMap = {};
 
             if (!Array.isArray(jsonData) || jsonData.length === 0) {
                 console.warn("Không có dữ liệu hợp lệ để render!");
                 return;
             }
-
+            totalCrime.text(jsonData.length)
             jsonData.forEach(item => {
                 if (item.zone) {
                     zoneCountMap[item.zone] = (zoneCountMap[item.zone] || 0) + 1;
                 }
+                if (item.gender) {
+                    genderCountMap[item.gender] = (genderCountMap[item.gender] || 0) + 1;
+                }
             });
-
             listCrimeZone.empty();
+            listCrimeGender.empty();
             $.each(
                 Object.keys(zoneCountMap).sort(),
                 function (i, zone) {
                     const count = zoneCountMap[zone];
                     listCrimeZone.append(`<li>Khu ${zone}: ${count}</li>`);
+                }
+            );
+            $.each(
+                Object.keys(genderCountMap).sort(),
+                function (i, gender) {
+                    const count = genderCountMap[gender];
+                    listCrimeGender.append(`<li>${gender}: ${count}</li>`);
                 }
             );
             const uniqueZones = Array.from(
@@ -124,21 +141,34 @@ $(document).ready(function () {
 
             const tbody = document.querySelector('#dataTable tbody');
             tbody.innerHTML = '';
+
+
             jsonData.forEach((item, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                 <td>${index + 1}</td>
                 <td>${item.last_name}</td>
                 <td>${item.first_name}</td>
+                <td>${item.gender}</td>
                 <td>${moment(item.birthdate, 'YYYY-MM-DD').format('YYYY')}</td>
+                <td>${item.ethnicity}</td>
+                <td>${item.nation}</td>
                 <td>${item.hometown}</td>
                 <td>${item.permanent_address}</td>
                 <td>${item.zone}</td>
                 <td>${item.cell}</td>
                 <td>${item.offense}</td>
+                <td>${formatDateDMY(item.arrest_date)}</td>
+                <td>${formatDateDMY(item.prison_entry)}</td>
+                <td>${item.arrest_warrant}</td>
+                <td>${item.handling_agency}</td>
+                <td>${item.comment || ''}</td>
                 <td>${item.no_visit}</td>
-                <td>${moment(item.arrest_date, 'YYYY-MM-DD').format('DD/MM/YYYY')}</td>
-                <td>${moment(item.prison_entry, 'YYYY-MM-DD').format('DD/MM/YYYY')}</td>
+                <td>${item.no_visit_date}</td>
+                <td>${item.disease}</td>
+                <td>${item.note || ''}</td>
+                <td>${formatDateDMY(item.visit)}</td>
+                <td>${formatDateDMY(item.send)}</td>
                 <td class="action">
                     <a class="btn-action btn-info detail-button" data-id="${item.id}" href="javascript:void(0)"><img src="../../assets/images/icon/icon-eye.svg" class="icon" alt="Chi tiết"></a>
                     <a class="btn-action btn-primary edit-btn" data-id="${item.id}" href="javascript:void(0)"><img src="../../assets/images/icon/icon-edit.svg" class="icon" alt="Sửa"></a>
@@ -151,14 +181,19 @@ $(document).ready(function () {
 
             const tableManageUsers = $('#dataTable').DataTable({
                 pageLength: 10,
-                lengthChange: false,
+                lengthChange: true,
                 ordering: true,
-                order: [[0, 'asc']], // Mặc định sắp xếp cột đầu tiên (Họ và Tên) tăng dần
+                // autoWidth: false,
+                order: [
+                    [0, 'asc'],
+                ], // Đặt sắp xếp mặc định cho các cột
                 columnDefs: [
-                    { width: "30px", targets: 0 }, // STT nhỏ lại
-                    { width: "150px", targets: -1 }, // Cột action to ra
-                    { orderable: true, targets: [0, 2, 3, 6, 7, 9] },
-                    { orderable: false, targets: [1, 4, 5, 8, 10, 11, 12] } // Các cột khác không sắp xếp
+                    { width: "30", targets: 0 },  // STT nhỏ lại
+                    { width: "150", targets: -1 }, // Cột action to ra
+                    { orderable: true, targets: [0, 2, 3, 4, 5, 10, 12, 13, 17, 21, 22] },
+                    { orderable: false, targets: [1, 6, 7, 8, 11, 14, 15, 16, 18, 19, 20, 23] }, // Các cột khác không sắp xếp
+                    { searchable: true, targets: [2, 9, 10, 17] },
+                    { searchable: false, targets: '_all' }, // tất cả các cột còn lại đều không search
                 ],
                 responsive: true,
                 language: {
@@ -177,7 +212,10 @@ $(document).ready(function () {
                     }
                 },
             });
-
+            let $table = $('#dataTable');
+            if (!$table.parent().hasClass('areaDataTable')) {
+                $table.wrap('<div class="areaDataTable"></div>');
+            }
             renderFilter(data);
             $('#dataTable tbody').on('click', '.edit-btn', function () {
                 const id = $(this).data('id');
@@ -221,24 +259,44 @@ $(document).ready(function () {
                 });
                 // deleteData(id);
             });
-            $('.areaTable #dataTable_wrapper').prepend(tableFilter);
-            $("#filterLength").on("change", function () {
-                tableManageUsers.page.len($(this).val()).draw();
-            });
+            $('.areaTable').prepend(tableFilter);
             filterKhu.on("change", function () {
-                tableManageUsers.column(6).search(this.value).draw(); // Cột thứ 7 là "Khu"
+                console.log("Lọc khu với:", this.value);
+                tableManageUsers.column(9).search(this.value.trim()).draw();
             });
-
             filterBuong.on("change", function () {
-                tableManageUsers.column(7).search(this.value).draw(); // Cột thứ 8 là "Buồng"
+                tableManageUsers.column(10).search(this.value.trim()).draw(); // Cột thứ 10 là "Buồng"
             });
 
             filterNoVisit.on("change", function () {
-                tableManageUsers.column(9).search(this.value).draw(); // Cột thứ 8 là "Buồng"
+                tableManageUsers.column(17).search(this.value.trim()).draw(); // Cột thứ 17 là "Buồng"
             });
         });
     }
-
+    $('#menu').on('click', '#btnRemoveAll', function () {
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xóa tất cả dữ liệu?',
+            text: "Dữ liệu này sẽ không thể khôi phục!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'Hủy',
+            confirmButtonText: 'Xóa',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteData();
+                Swal.fire({
+                    title: 'Đã xóa!',
+                    text: 'Dữ liệu đã được xóa thành công.',
+                    icon: 'success',
+                    timer: 1500, // Tự động đóng sau 1.5 giây
+                    showConfirmButton: false
+                });
+            }
+        });
+    });
     function deleteData(id) {
         fs.readFile(dataFilePath, 'utf8', (err, data) => {
             if (err) {
@@ -247,19 +305,30 @@ $(document).ready(function () {
             }
 
             let jsonData = JSON.parse(data);
-            let updatedData = jsonData.filter(item => item.id !== id);
+
+            // Nếu có id, chỉ xóa phần tử có id đó, nếu không xóa tất cả
+            let updatedData = id ? jsonData.filter(item => item.id !== id) : [];
 
             fs.writeFile(dataFilePath, JSON.stringify(updatedData, null, 2), 'utf8', (err) => {
                 if (err) {
                     console.error('Lỗi ghi JSON:', err);
                     return;
                 }
+
+                // Cập nhật bảng sau khi xóa dữ liệu
                 let table = $('#dataTable').DataTable();
-                table.row($(`.delete-btn[data-id="${id}"]`).parents('tr')).remove().draw();
-                // Cập nhật lại STT trong bảng
-                $('#dataTable tbody tr').each((index, row) => {
-                    $(row).find('td:first').text(index + 1);
-                });
+
+                if (id) {
+                    // Nếu có id, chỉ xóa hàng tương ứng
+                    table.row($(`.delete-btn[data-id="${id}"]`).parents('tr')).remove().draw();
+                    // Cập nhật lại STT trong bảng
+                    $('#dataTable tbody tr').each((index, row) => {
+                        $(row).find('td:first').text(index + 1);
+                    });
+                } else {
+                    // Nếu không có id, xóa toàn bộ bảng
+                    table.clear().draw();
+                }
             });
         });
     }
@@ -359,13 +428,26 @@ $(document).ready(function () {
         let dataFilterKhu = $("#filterKhu").val();
         let dataFilterBuong = $("#filterBuong").val();
         let dataFilterNoVisit = $("#filterNoVisit").val();
-        let dataFilterLength = $("#filterLength").val();
         fs.readFile(dataFilePath, 'utf8', (err, fileData) => {
             if (err) return;
 
             let jsonData = JSON.parse(fileData);
 
-            const newData = data.map((item, index) => ({
+            const filteredData = data.filter(item => {
+                const birthdate = formatDateYMD(item['Ngày sinh']);
+                const arrest_date = formatDateYMD(item['Ngày bắt']);
+
+                return !jsonData.some(existing =>
+                    existing.first_name === item['Tên'] &&
+                    existing.gender === item['Giới tính'] &&
+                    existing.birthdate === birthdate &&
+                    existing.zone === item['Khu'] &&
+                    existing.cell === item['Buồng'] &&
+                    existing.arrest_date === arrest_date
+                );
+            });
+
+            const newData = filteredData.map((item, index) => ({
                 id: Date.now() + index,
                 last_name: item['Họ'],
                 first_name: item['Tên'],
@@ -402,16 +484,13 @@ $(document).ready(function () {
                     loadData();
                 setTimeout(() => {
                     if (dataFilterKhu) {
-                        $('#dataTable').DataTable().column(6).search(dataFilterKhu).draw();
+                        $('#dataTable').DataTable().column(9).search(dataFilterKhu.trim()).draw();
                     }
                     if (dataFilterBuong) {
-                        $('#dataTable').DataTable().column(7).search(dataFilterBuong).draw();
+                        $('#dataTable').DataTable().column(10).search(dataFilterBuong.trim()).draw();
                     }
                     if (dataFilterNoVisit) {
-                        $('#dataTable').DataTable().column(9).search(dataFilterNoVisit).draw();
-                    }
-                    if (dataFilterLength) {
-                        $('#dataTable').DataTable().page.len(dataFilterLength).draw();
+                        $('#dataTable').DataTable().column(17).search(dataFilterNoVisit.trim()).draw();
                     }
                 }, 500);
             });

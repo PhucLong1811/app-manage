@@ -21,16 +21,18 @@
                 </ul>
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
-                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản giao nhận nhiều người">Xuất PDF</a></li>
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản giao nhận nhiều người"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất
+                            PDF</a></li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <!-- <div class="filterUser">
-                <select name="" id="selectUserData" class="selectStyle">
+                <select name="" id="selectUserData" class="selectStyle select2">
                     <option value="">Chọn tội phạm</option>
                 </select>
             </div> -->
@@ -113,9 +115,13 @@
                                 </div>
                             </div>
                             <div class="areaInfo">
-                                <div class="txt">
-                                    Đơn vị công tác: Đội quản giáo, Trại tạm giam Công an thành phố Huế.
+                                <div class="info">
+                                    <label for="name_other" class="label">Đơn vị công tác:</label>
+                                    <input type="text" class="inputStyle"
+                                        value="Đội quản giáo, Trại tạm giam Công an thành phố Huế.">
                                 </div>
+                            </div>
+                            <div class="areaInfo">
                                 <div class="txt area-txt-dot">
                                     <!-- CM CAND số:&nbsp;<input type="text" class="inputStyle small-120">&nbsp;cấp
                                     ngày&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input
@@ -123,7 +129,9 @@
                                         class="inputStyle small-30">&nbsp;đơn vị cấp<input type="text"
                                         class="inputStyle small-120"> -->
                                     <div class="txt-dot w-35">CM CAND số:&nbsp;<span class="dot"></span>&nbsp;</div>
-                                    <div class="txt-dot w-34">cấp ngày:&nbsp;<span class="dot dot-30"></span>&nbsp;/&nbsp;<span class="dot dot-30"></span>&nbsp;/&nbsp;<span class="dot"></span></div>
+                                    <div class="txt-dot w-34">cấp ngày:&nbsp;<span
+                                            class="dot dot-30"></span>&nbsp;/&nbsp;<span
+                                            class="dot dot-30"></span>&nbsp;/&nbsp;<span class="dot"></span></div>
                                     <div class="txt-dot w-31">đơn vị cấp:&nbsp;<span class="dot"></span>&nbsp;</div>
                                 </div>
                             </div>
@@ -147,9 +155,13 @@
                                 </div>
                             </div>
                             <div class="areaInfo">
-                                <div class="txt">
-                                    Đơn vị công tác: Đội Cảnh sát Bảo vệ, Trại tạm giam Công an thành phố Huế.
+                                <div class="info">
+                                    <label for="name_other" class="label">Đơn vị công tác:</label>
+                                    <input type="text" class="inputStyle"
+                                        value="Đội Cảnh sát Bảo vệ, Trại tạm giam Công an thành phố Huế.">
                                 </div>
+                            </div>
+                            <div class="areaInfo">
                                 <div class="txt area-txt-dot">
                                     <!-- CM CAND số:&nbsp;<input type="text" class="inputStyle small-120">&nbsp;cấp
                                     ngày&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input
@@ -157,13 +169,16 @@
                                         class="inputStyle small-30">&nbsp;đơn vị cấp<input type="text"
                                         class="inputStyle small-120"> -->
                                     <div class="txt-dot w-35">CM CAND số:&nbsp;<span class="dot"></span>&nbsp;</div>
-                                    <div class="txt-dot w-34">cấp ngày:&nbsp;<span class="dot dot-30"></span>&nbsp;/&nbsp;<span class="dot dot-30"></span>&nbsp;/&nbsp;<span class="dot"></span></div>
+                                    <div class="txt-dot w-34">cấp ngày:&nbsp;<span
+                                            class="dot dot-30"></span>&nbsp;/&nbsp;<span
+                                            class="dot dot-30"></span>&nbsp;/&nbsp;<span class="dot"></span></div>
                                     <div class="txt-dot w-31">đơn vị cấp:&nbsp;<span class="dot"></span>&nbsp;</div>
                                 </div>
                             </div>
                             <div class="areaInfo">
                                 <div class="txt">
-                                    Tiến hành lập biên bản giao, nhận&nbsp;<input type="text" class="inputStyle small-100">&nbsp;người bị tạm giam có lai lịch sau:
+                                    Tiến hành lập biên bản giao, nhận&nbsp;<input type="text"
+                                        class="inputStyle small-100">&nbsp;người bị tạm giam có lai lịch sau:
                                 </div>
                             </div>
                             <div class="areaInfo">
@@ -179,7 +194,8 @@
                             </div>
                             <div class="areaInfo">
                                 <div class="info">
-                                    <p for="prison_entry" class="label">&emsp;&emsp;Tình trạng sức khoẻ: Có phiếu khám sức khoẻ kèm theo&nbsp;.............................................</p>
+                                    <p for="prison_entry" class="label">&emsp;&emsp;Tình trạng sức khoẻ: Có phiếu khám
+                                        sức khoẻ kèm theo&nbsp;.............................................</p>
                                 </div>
                             </div>
                             <div class="areaInfo">
@@ -231,7 +247,10 @@
             </div>
         </div>
     </div>
-
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->
 </body>

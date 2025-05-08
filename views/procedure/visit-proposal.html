@@ -21,12 +21,13 @@
                 </ul>
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
-                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Đề xuất thăm gặp">Xuất PDF</a></li>
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Đề xuất thăm gặp"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a></li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div id="selectMarginFile">
@@ -82,13 +83,16 @@
                         <div class="cardInfo">
                             <div class="areaInfo">
                                 <p class="txt">
-                                    &emsp;&emsp;Căn cứ khoản 1,2,5 điều 22 luật thi hành tạm giữ, tạm giam quy định việc
+                                    &emsp;&emsp;Căn cứ khoản&nbsp;<input type="text" class="inputStyle small-50"
+                                        value="1,2,5">&nbsp;điều&nbsp;<input type="text" class="inputStyle small-30"
+                                        value="22">&nbsp;luật thi hành tạm giữ, tạm giam quy định việc
                                     gặp thân nhân của người bị tạm giữ, tạm giam;
                                 </p>
                             </div>
                             <div class="areaInfo">
                                 <p class="txt">
-                                    &emsp;&emsp;Căn cứ điều 4 thông tư 34/2017/TT-BCA ngày 19/09/2017 của Bộ Công an,
+                                    &emsp;&emsp;Căn cứ điều&nbsp;<input type="text" class="inputStyle small-30"
+                                        value="4">&nbsp;thông tư&nbsp;<input type="text" class="inputStyle small-150" value="34/2017/TT-BCA">&nbsp;ngày&nbsp;<input type="text" class="inputStyle small-100" value="19/09/2017">&nbsp;của Bộ Công an,
                                     quy định về việc cho người bị tạm giữ, tạm giam gặp thân nhân; nhận quà; gửi nhận
                                     thư, sách báo, tài liệu;
                                 </p>
@@ -114,7 +118,9 @@
                             </div>
                             <div class="areaInfo">
                                 <div class="info">
-                                    <p for="name_other" class="label">&emsp;&emsp;Chức vụ: Đội trưởng Đội Quản giáo.</p>
+                                    <label for="name_other" class="label">&emsp;&emsp;&nbsp;Chức vụ:</label>
+                                    <input type="text" class="inputStyle"
+                                        value="Đội trưởng Đội Quản giáo.">
                                 </div>
                             </div>
                             <div class="areaInfo">
@@ -150,35 +156,12 @@
                 </div>
 
             </div>
-            <div id="listVisit">
-                <div class="areaTitle">
-                    <h2 class="title">Danh sách người bị tạm giữ, tạm giam thăm gặp thân nhân</h2>
-                    <p class="subTitle">(Kèm theo Quyết định từ số&nbsp;<input type="text"
-                            class="inputStyle small-30" />&nbsp;đến số&nbsp;<input type="text"
-                            class="inputStyle small-30" />&nbsp;ngày&nbsp;<input type="text"
-                            class="inputStyle small-30" />&nbsp;tháng&nbsp;<input type="text"
-                            class="inputStyle small-30" />&nbsp;năm&nbsp;<input type="text"
-                            class="inputStyle small-30" />&nbsp; của Giám thị Trại tạm giam Công an thành phố Huế)</p>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Họ</th>
-                            <th>Tên</th>
-                            <th>Năm sinh</th>
-                            <th>Buồng giam</th>
-                            <th>Hành vi phạm tội</th>
-                            <th>Ngày bắt</th>
-                            <th>Nơi ĐKHKTT</th>
-                            <th>Số QĐ thăm gặp</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
         </div>
     </div>
-
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <script src="../../renderer/procedure/visit-proposal.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->

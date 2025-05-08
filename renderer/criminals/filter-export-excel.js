@@ -261,7 +261,18 @@ function handleExportPdf() {
             }
         };
 
-        pdfMake.createPdf(docDefinition).download("Danh sách phạm nhân.pdf");
+        // pdfMake.createPdf(docDefinition).download("Danh sách phạm nhân.pdf");
+        pdfMake.createPdf(docDefinition).getBlob((blob) => {
+            const url = URL.createObjectURL(blob);
+            const printWindow = window.open(url);
+            if (printWindow) {
+                printWindow.onload = function () {
+                    printWindow.focus();
+                    printWindow.print();
+                };
+            }
+        });
+        
     } catch (error) {
         console.error("Lỗi:", error);
     }

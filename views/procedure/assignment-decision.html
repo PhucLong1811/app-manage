@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Quyết định bố trí</title>
+    <link href="../../vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
@@ -21,16 +22,17 @@
                 </ul>
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
-                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Quyết định bố trí">Xuất PDF</a></li>
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Quyết định bố trí"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a></li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div class="filterUser">
-                <select name="" id="selectUserData" class="selectStyle">
+                <select name="" id="selectUserData" class="selectStyle select2">
                     <option value="">Chọn phạm nhân</option>
                 </select>
             </div>
@@ -89,17 +91,33 @@
                         </div>
                         <div class="cardInfo">
                             <div class="areaInfo">
-                                <p class="txt txt-italic">
-                                    &emsp;&emsp;Căn cứ Điều 13 Luật thi hành tạm giữ, tạm giam quy định nhiệm vụ, quyền
-                                    hạn, của nhà tạm giữ, trại tạm giam;
+                                <div class="txt txt-italic">
+                                    <p for="prison_entry" class="label">&emsp;&emsp;Căn cứ Điều&nbsp;<input type="text"
+                                            class="inputStyle small-25" value="13">&nbsp;Luật thi hành tạm giữ, tạm giam
+                                        quy định nhiệm vụ, quyền
+                                        hạn, của nhà tạm giữ, trại tạm giam;</p>
+                                </div>
+                            </div>
+                            <div class="areaInfo">
+                                <div class="txt txt-italic">
+                                    <p for="prison_entry" class="label">&emsp;&emsp;Căn cứ Điều&nbsp;<input type="text"
+                                            class="inputStyle small-25" value="18">&nbsp;Luật thi hành tạm giữ, tạm giam
+                                        quy định phân loại quản
+                                        lý người bị tạm giữ, người bị tạm giam</p>
+                                </div>
+                            </div>
+                            <!-- <div class="areaInfo">
+                                <p class="txt ">
+                                    &emsp;&emsp;Căn cứ Điều&nbsp;<input type="text" class="inputStyle small-350"
+                                        value="13 Luật thi hành tạm giữ, tạm giam quy định nhiệm vụ, quyền hạn, của nhà tạm giữ, trại tạm giam;">
                                 </p>
                             </div>
                             <div class="areaInfo">
                                 <p class="txt txt-italic">
-                                    &emsp;&emsp;Căn cứ Điều 18 Luật thi hành tạm giữ, tạm giam quy định phân loại quản
-                                    lý người bị tạm giữ, người bị tạm giam
+                                    &emsp;&emsp;Căn cứ Điều&nbsp;<input type="text" class="inputStyle small-350"
+                                        value="18 Luật thi hành tạm giữ, tạm giam quy định phân loại quản lý người bị tạm giữ, người bị tạm giam">
                                 </p>
-                            </div>
+                            </div> -->
                             <div class="areaInfo">
                                 <p class="txt txt-center txt-italic">
                                     &emsp;&emsp;Xét báo cáo đề xuất của đồng chí Đội trưởng đội Quản giáo.
@@ -208,7 +226,10 @@
             </div>
         </div>
     </div>
-
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->
 </body>

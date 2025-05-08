@@ -60,19 +60,19 @@ function addEditor() {
                         html: `
                             <div class="form-group">
                                 <label for="topMargin">Lề trên:</label>
-                                <input type="text" id="topMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="topMargin" value="2" class="swal2-input"><br>
                             </div>
                             <div class="form-group">
                                 <label for="rightMargin">Lề phải:</label>
-                                <input type="text" id="rightMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="rightMargin" value="1.5" class="swal2-input"><br>
                             </div>
                             <div class="form-group">
                                 <label for="bottomMargin">Lề dưới:</label>
-                                <input type="text" id="bottomMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="bottomMargin" value="0" class="swal2-input"><br>
                             </div>
                             <div class="form-group">
                                 <label for="leftMargin">Lề trái:</label>
-                                <input type="text" id="leftMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="leftMargin" value="3" class="swal2-input"><br>
                             </div>
                         `,
                         showCancelButton: true,
@@ -88,11 +88,10 @@ function addEditor() {
                             $('#createForm #margin-bottom').val(bottomMargin)
                             $('#createForm #margin-left').val(leftMargin)
                             // Áp dụng lề vào nội dung của TinyMCE
-                            // editor.getBody().style.marginTop = topMargin + 'cm';
-                            // editor.getBody().style.marginRight = rightMargin + 'cm';
-                            // editor.getBody().style.marginBottom = bottomMargin + 'cm';
-                            // editor.getBody().style.marginLeft = leftMargin + 'cm';
-                            console.log(editor.getBody(),'editor.getBody()')
+                            editor.getBody().style.marginTop = topMargin + 'cm';
+                            editor.getBody().style.marginRight = rightMargin + 'cm';
+                            editor.getBody().style.marginBottom = bottomMargin + 'cm';
+                            editor.getBody().style.marginLeft = leftMargin + 'cm';
                             $('#document').css({
                                 'margin-top': topMargin + 'cm',
                                 'margin-right': rightMargin + 'cm',
@@ -128,10 +127,10 @@ function saveReport(title) {
         id: Date.now(),
         title: title,
         content: content,
-        margin_top: topMargin,
-        margin_right: rightMargin,
-        margin_bottom: bottomMargin,
-        margin_left: leftMargin,
+        margin_top: topMargin ?? 2,
+        margin_right: rightMargin ?? 1.5,
+        margin_bottom: bottomMargin ?? 0,
+        margin_left: leftMargin ?? 3,
         created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
         updated_at: ""
     };

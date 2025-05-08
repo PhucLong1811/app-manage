@@ -58,5 +58,17 @@
     "title": "Biên bản nhận xét",
     "type": "Biên bản",
     "view": "evaluation-record"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Danh sách thăm gặp",
+    "type": "Thăm gặp",
+    "view": "export-list-visit-user"
+  },
+  {
+    "id": 1743500082663,
+    "title": "Danh sách người bị tạm giam",
+    "type": "Thăm gặp",
+    "view": "export-list-detainee"
   }
 ]

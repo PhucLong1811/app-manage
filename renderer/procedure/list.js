@@ -17,12 +17,15 @@ function formatDateYMD(dateStr) {
 
 function renderMenu() {
     const menuItems = [
-        { id: "listVisitUser", label: "Tạo danh sách thăm gặp" },
-        { id: "logout", label: "Đăng xuất" }
+        // { id: "listVisitUser", label: "Tạo danh sách thăm gặp" },
+        { id: "logout", label: "Đăng xuất", icon: "../../assets/images/icon/logout.svg"  }
     ];
 
     menuItems.forEach(item => {
-        $('#menu').append(`<li><a href="javascript:void(0)" id="${item.id}">${item.label}</a></li>`);
+        $('#menu').append(`<li><a href="javascript:void(0)" id="${item.id}">
+            <img src="${item.icon}" class="icon"/>
+            ${item.label}</a>
+            </li>`);
     });
 }
 $(document).ready(function () {
@@ -55,7 +58,7 @@ $(document).ready(function () {
         // Khởi tạo DataTable nếu chưa có
         if (!$.fn.DataTable.isDataTable("#procedureTable")) {
             procedureTable.DataTable({
-                pageLength: 10,
+                pageLength: 20,
                 lengthChange: false,
                 ordering: true,
                 order: [[0, 'asc']], // Mặc định sắp xếp cột đầu tiên (Họ và Tên) tăng dần
@@ -63,7 +66,9 @@ $(document).ready(function () {
                     { width: "30px", targets: 0 }, // STT nhỏ lại
                     { width: "250px", targets: -1 }, // Cột action to ra
                     { orderable: true, targets: [0, 1, 2] },
-                    { orderable: false, targets: [3] } // Các cột khác không sắp xếp
+                    { orderable: false, targets: [3] }, // Các cột khác không sắp xếp
+                    { searchable: true, targets: [1] },
+                    { searchable: false, targets: '_all' }, // tất cả các cột còn lại đều không search
                 ],
                 responsive: true,
                 language: {

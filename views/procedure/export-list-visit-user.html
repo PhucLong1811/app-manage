@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Danh sách người bị TG/TG</title>
+    <link href="../../vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
@@ -22,16 +23,17 @@
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
                     <li><a href="javascript:void(0)" id="exportListVisit"
-                            data-title="Danh sách người bị TG/TG">Xuất PDF</a></li>
+                            data-title="Danh sách người bị TG/TG"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a></li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div class="filterUser">
-                <select name="" id="selectPrisoner" class="selectStyle">
+                <select name="" id="selectPrisoner" class="selectStyle select2" multiple="multiple">
                     <option value="">Chọn phạm nhân</option>
                 </select>
             </div>
@@ -72,7 +74,10 @@
             </div>
         </div>
     </div>
-
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <script src="../../renderer/procedure/export-list-visit-user.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->

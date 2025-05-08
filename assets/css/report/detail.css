@@ -37,6 +37,6 @@
     transition: border-color 0.15sease -in-out, box-shadow 0.15sease -in-out;
 }
 #areaReport {
-    padding: 2.5cm;
+    padding: 2cm 1.5cm 0cm 3cm;
     margin-top: 10px;
 }

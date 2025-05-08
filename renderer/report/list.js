@@ -16,12 +16,15 @@ function formatDateYMD(dateStr) {
 }
 function renderMenu() {
     const menuItems = [
-        { id: "btnCreate", label: "Tạo mới" },
-        { id: "logout", label: "Đăng xuất" }
+        { id: "btnCreate", label: "Tạo mới", icon: "../../assets/images/icon/create.svg"  },
+        { id: "logout", label: "Đăng xuất", icon: "../../assets/images/icon/logout.svg"  }
     ];
 
     menuItems.forEach(item => {
-        $('#menu').append(`<li><a href="javascript:void(0)" id="${item.id}">${item.label}</a></li>`);
+        $('#menu').append(`<li><a href="javascript:void(0)" id="${item.id}">
+            <img src="${item.icon}" class="icon"/>
+            ${item.label}</a>
+            </li>`);
     });
 }
 function deleteData(id) {
@@ -88,7 +91,9 @@ $(document).ready(function () {
                     { width: "30px", targets: 0 }, // STT nhỏ lại
                     { width: "250px", targets: -1 }, // Cột action to ra
                     { orderable: true, targets: [0, 1] },
-                    { orderable: false, targets: [2, 3] } // Các cột khác không sắp xếp
+                    { orderable: false, targets: [2, 3] }, // Các cột khác không sắp xếp
+                    { searchable: true, targets: [1] },
+                    { searchable: false, targets: '_all' }, // tất cả các cột còn lại đều không search
                 ],
                 responsive: true,
                 language: {

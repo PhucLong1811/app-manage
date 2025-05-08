@@ -15,29 +15,38 @@
             <!-- <h1 class="headerTitle">Danh sách</h1> -->
             <div class="hdMenu">
                 <ul class="mainMenu">
-                    <li><a href="javascript:void(0)" id="btnBack"><img src="../../assets/images/icon/icon-back.svg" alt="Trở lại" class="icon">Quay lại</a></li>
+                    <li><a href="javascript:void(0)" id="btnBack"><img src="../../assets/images/icon/icon-back.svg"
+                                alt="Trở lại" class="icon">Quay lại</a></li>
                 </ul>
                 <ul class="mainMenu" id="menu">
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
+            <div class="areaCountCriminal">
+                <div class="areaListCountCrime">
+                    <p>Tổng: <span class="totalCrime"></span> (phạm nhân)&nbsp;|&nbsp;</p>
+                </div>
+                <div class="areaListCountCrime">
+                    <ul class="listCrimeGender">
+                    </ul>
+                </div>
+                <div class="areaListCountCrime">
+                    <ul class="listCrimeZone">
+                    </ul>
+                    <p>(phạm nhân)</p>
+                </div>
+            </div>
             <div class="areaTable">
                 <div class="tableFilter">
-                    <label for="filterLength">Hiển thị:</label>
-                    <select id="filterLength">
-                        <option value="10" selected>10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                
                     <label for="filterKhu">Khu:</label>
                     <select id="filterKhu">
                         <option value="">Tất cả</option>
                     </select>
-                
+
                     <label for="filterBuong">Buồng:</label>
                     <select id="filterBuong">
                         <option value="">Tất cả</option>
@@ -47,33 +56,40 @@
                     <select id="filterNoVisit">
                         <option value="">Tất cả</option>
                     </select>
-                    <div class="areaListCrimeZone">
-                        <ul class="listCrimeZone">
-                        </ul>
-                        <p>(phạm nhân)</p>
-                    </div>
-
                 </div>
-                <table id="dataTable">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Họ</th>
-                            <th>Tên</th>
-                            <th>Năm sinh</th>
-                            <th>Quê quán</th>
-                            <th>Hktt</th>
-                            <th>Khu</th>
-                            <th>Buồng</th>
-                            <th>Tội</th>
-                            <th>Cấm gặp</th>
-                            <th>Ngày bắt</th>
-                            <th>Ngày nhập</th>
-                            <th class="action"></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div>
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Họ</th>
+                                <th>Tên</th>
+                                <th>Giới tính</th>
+                                <th>Ngày sinh</th>
+                                <th>Dân tộc</th>
+                                <th>Quốc tịch</th>
+                                <th>Quê quán</th>
+                                <th>Hktt</th>
+                                <th>Khu</th>
+                                <th>Buồng</th>
+                                <th>Tội</th>
+                                <th>Ngày bắt</th>
+                                <th>Ngày nhập</th>
+                                <th>Lệnh</th>
+                                <th>Đơn vị thụ lý</th>
+                                <th>Nhận xét</th>
+                                <th>Cấm thăm gặp</th>
+                                <th>Thời gian cấm gặp</th>
+                                <th>Bệnh</th>
+                                <th>Ghi chú</th>
+                                <th>Gặp</th>
+                                <th>Gửi</th>
+                                <th class="action"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -82,6 +98,6 @@
     </script>
     <script src="../../assets/js/datatables.min.js"></script>
     <script src="../../renderer/criminals/list.js"></script>
-    <script src="../../renderer/excel.js"></script>
 </body>
+
 </html>

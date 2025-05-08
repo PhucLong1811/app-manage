@@ -23,7 +23,8 @@ td {
 }
 .card-detail {
     width: 297mm;
-    height: 210mm;
+    min-height: 210mm;
+    height: 100%;
 }
 .filterUser {
     margin-bottom: 10px;

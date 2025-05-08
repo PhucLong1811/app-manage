@@ -51,19 +51,19 @@ function addEditor(callback) {
                         html: `
                             <div class="form-group">
                                 <label for="topMargin">Lề trên:</label>
-                                <input type="text" id="topMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="topMargin" value="2" class="swal2-input"><br>
                             </div>
                             <div class="form-group">
                                 <label for="rightMargin">Lề phải:</label>
-                                <input type="text" id="rightMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="rightMargin" value="1.5" class="swal2-input"><br>
                             </div>
                             <div class="form-group">
                                 <label for="bottomMargin">Lề dưới:</label>
-                                <input type="text" id="bottomMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="bottomMargin" value="0" class="swal2-input"><br>
                             </div>
                             <div class="form-group">
                                 <label for="leftMargin">Lề trái:</label>
-                                <input type="text" id="leftMargin" value="2.5" class="swal2-input"><br>
+                                <input type="text" id="leftMargin" value="3" class="swal2-input"><br>
                             </div>
                         `,
                         showCancelButton: true,

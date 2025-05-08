@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Biên bản phổ biến nội quy</title>
+    <link href="../../vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
@@ -21,17 +22,18 @@
                 </ul>
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
-                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản phổ biến nội quy">Xuất PDF</a>
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản phổ biến nội quy"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a>
                     </li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div class="filterUser">
-                <select name="" id="selectUserData" class="selectStyle">
+                <select name="" id="selectUserData" class="selectStyle select2">
                     <option value="">Chọn phạm nhân</option>
                 </select>
             </div>
@@ -201,11 +203,24 @@
                             </div>
                             <div class="areaInfo">
                                 <p class="txt">
-                                    Đã phổ biến, quán triệt nội dung Điều 19, Điều 20, Điều 31 Hiến pháp nước Cộng hoà
-                                    xã hội chủ nghĩa Việt Nam; Điều 9, Điều 22, Chương IV Luật thi hành tạm giữ, tạm
-                                    giam năm 2015; Nghị định 120/2017/NĐ-CP ngày 06/11/2017, Nghị định 113/2021/NĐ-CP
-                                    ngày 14/12/2021 của Chính phủ; Điều 1, Điều 5 Nội quy cơ sở giam giữ ban hành kèm
-                                    theo Thông tư số 36/2017/TT-BCA ngày 19/09/2017 của Bộ trưởng Công an.
+                                    Đã phổ biến, quán triệt nội dung Điều&nbsp;<input type="text" class="inputStyle small-25"
+                                    value="19">, Điều&nbsp;<input type="text" class="inputStyle small-25"
+                                    value="20">, Điều&nbsp;<input type="text" class="inputStyle small-25"
+                                    value="31">&nbsp;Hiến pháp nước Cộng hoà
+                                    xã hội chủ nghĩa Việt Nam; Điều&nbsp;<input type="text" class="inputStyle small-25"
+                                    value="9">, Điều&nbsp;<input type="text" class="inputStyle small-25"
+                                    value="22">, Chương&nbsp;<input type="text" class="inputStyle small-30"
+                                    value="IV">&nbsp;Luật thi hành tạm giữ, tạm
+                                    giam năm&nbsp;<input type="text" class="inputStyle small-50"
+                                    value="2015">; Nghị định&nbsp;<input type="text" class="inputStyle small-250"
+                                    value="120/2017/NĐ-CP ngày 06/11/2017">, Nghị định&nbsp;<input type="text" class="inputStyle small-130"
+                                    value="113/2021/NĐ-CP">&nbsp;ngày&nbsp;<input type="text" class="inputStyle small-90"
+                                    value="14/12/2021">&nbsp;của Chính phủ; Điều&nbsp;<input type="text" class="inputStyle small-25"
+                                    value="1">, Điều&nbsp;<input type="text" class="inputStyle small-25"
+                                    value="5">&nbsp;Nội quy cơ sở giam giữ ban hành kèm
+                                    theo Thông tư số&nbsp;<input type="text" class="inputStyle small-130"
+                                    value="36/2017/TT-BCA">&nbsp;ngày&nbsp;<input type="text" class="inputStyle small-90"
+                                    value="19/09/2017">&nbsp;của Bộ trưởng Công an.
                                 </p>
                             </div>
                             <div class="areaInfo">
@@ -244,7 +259,10 @@
             </div>
         </div>
     </div>
-
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->
 </body>

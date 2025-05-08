@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Biên bản giao nhận 1 người</title>
+    <link href="../../vendor/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/base.css">
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/procedure/detail.css">
@@ -21,17 +22,18 @@
                 </ul>
                 <ul class="mainMenu">
                     <!-- <li><a href="javascript:void(0)" id="exportWord">Xuất Word</a></li> -->
-                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản giao nhận 1 người">Xuất PDF</a>
+                    <li><a href="javascript:void(0)" id="exportPdf" data-title="Biên bản giao nhận 1 người"><img src="../../assets/images/icon/export-file.svg" class="icon"/>Xuất PDF</a>
                     </li>
                     <!-- <li><a href="javascript:void(0)" id="previewPdf">Xem trước PDF</a></li> -->
                 </ul>
             </div>
         </div>
     </div>
+    <div id="fixH"></div>
     <div id="content">
         <div class="inner">
             <div class="filterUser">
-                <select name="" id="selectUserData" class="selectStyle">
+                <select name="" id="selectUserData" class="selectStyle select2">
                     <option value="">Chọn phạm nhân</option>
                 </select>
             </div>
@@ -114,9 +116,12 @@
                                 </div>
                             </div>
                             <div class="areaInfo">
-                                <div class="txt">
-                                    Đơn vị công tác: Đội quản giáo, Trại tạm giam Công an thành phố Huế.
+                                <div class="info">
+                                    <label for="name_other" class="label">Đơn vị công tác:</label>
+                                    <input type="text" class="inputStyle" value="Đội quản giáo, Trại tạm giam Công an thành phố Huế.">
                                 </div>
+                            </div>
+                            <div class="areaInfo">
                                 <div class="txt area-txt-dot">
                                     <!-- CM CAND số:&nbsp;<input type="text" class="inputStyle small-120">&nbsp;cấp
                                     ngày&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input
@@ -148,9 +153,12 @@
                                 </div>
                             </div>
                             <div class="areaInfo">
-                                <div class="txt">
-                                    Đơn vị công tác: Đội Cảnh sát Bảo vệ, Trại tạm giam Công an thành phố Huế.
+                                <div class="info">
+                                    <label for="name_other" class="label">Đơn vị công tác:</label>
+                                    <input type="text" class="inputStyle" value="Đội Cảnh sát Bảo vệ, Trại tạm giam Công an thành phố Huế.">
                                 </div>
+                            </div>
+                            <div class="areaInfo">
                                 <div class="txt area-txt-dot">
                                     <!-- CM CAND số:&nbsp;<input type="text" class="inputStyle small-120">&nbsp;cấp
                                     ngày&nbsp;<input type="text" class="inputStyle small-30">&nbsp;/&nbsp;<input
@@ -272,8 +280,11 @@
 
             </div>
         </div>
-    </div>
-
+    </div>  
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../../vendor/select2/dist/js/select2.min.js"></script>
     <script src="../../renderer/procedure/detail.js"></script>
     <!-- <script src="../../renderer/export-word.js"></script> -->
 </body>

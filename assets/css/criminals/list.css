@@ -15,10 +15,14 @@ button {
     display: flex !important;
     align-items: center;
     gap: 10px;
-    float: left;
+    margin-bottom: 15px;
 }
-.areaTable #dataTable_wrapper {
+.dataTables_wrapper .dataTables_filter{
+    float: none;
+}
+.areaTable .areaDataTable {
     overflow-x: auto;
+    margin-top: 15px;
 }
 table {
     width: 100%;
@@ -55,11 +59,58 @@ table.dataTable tbody .btn-action .icon {
     /* vertical-align: middle; */
     vertical-align: text-bottom;
 }
-.areaListCrimeZone{
+.areaCountCriminal{
+    display: flex;
+    justify-items: center;
+    margin-bottom: 10px;
+}
+.areaListCountCrime {
     display: flex;
     justify-items: center;
 }
-.listCrimeZone li{
+.areaListCountCrime li{
     display: inline-block;
     margin-right: 10px;
+}
+#dataTable th, #dataTable td {
+    border: 1px solid #ccc;
+}
+
+#dataTable {
+    border-collapse: collapse;
+    width: 2355px !important
+}
+#dataTable th {
+    background: #4167AF;
+    color: #FFFFFF;
+}
+table#dataTable {
+background-color: #FFFFFF; 
+}
+
+table#dataTable tbody tr {
+background-color: #EBF9FF; 
+}
+
+/* table#dataTable tbody tr:nth-child(even) {
+background-color: #F9FAFB; 
+} */
+#dataTable th:last-child{
+    /* display: inline-block; */
+}
+#dataTable td:nth-child(2),
+#dataTable td:nth-child(7),
+#dataTable td:nth-child(8),
+#dataTable td:nth-child(17),
+#dataTable td:nth-child(20){
+    width: 100px;
+}
+#dataTable td:nth-child(9),
+#dataTable td:nth-child(12),
+#dataTable td:nth-child(15),
+#dataTable td:nth-child(16),
+#dataTable td:nth-child(21),
+#dataTable td:last-child, 
+#dataTable th:last-child {
+    width: 150px;
 }
