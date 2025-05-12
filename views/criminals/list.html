@@ -6,6 +6,7 @@
     <title>Danh sách</title>
     <link rel="stylesheet" href="../../assets/css/common.css">
     <link rel="stylesheet" href="../../assets/css/datatables.min.css">
+    <link rel="stylesheet" href="../../assets/css/fixedColumns.dataTables.min.css">
     <link rel="stylesheet" href="../../assets/css/criminals/list.css">
 </head>
 
@@ -61,11 +62,11 @@
                     <table id="dataTable">
                         <thead>
                             <tr>
-                                <th>STT</th>
-                                <th>Họ</th>
-                                <th>Tên</th>
-                                <th>Giới tính</th>
-                                <th>Ngày sinh</th>
+                                <th class="stt">STT</th>
+                                <th class="lastName">Họ</th>
+                                <th class="firstName">Tên</th>
+                                <th class="gender">Giới tính</th>
+                                <th class="birthYear">Ngày sinh</th>
                                 <th>Dân tộc</th>
                                 <th>Quốc tịch</th>
                                 <th>Quê quán</th>
@@ -97,6 +98,7 @@
         window.$ = window.jQuery = require('jquery');
     </script>
     <script src="../../assets/js/datatables.min.js"></script>
+    <script src="../../assets/js/dataTables.fixedColumns.min.js"></script>
     <script src="../../renderer/criminals/list.js"></script>
 </body>
 

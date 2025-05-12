@@ -16,10 +16,13 @@ function formatDateYMD(dateStr) {
 }
 function renderMenu() {
     const menuItems = [
-        { id: "btnCreate", label: "Tạo mới", icon: "../../assets/images/icon/create.svg"  },
         { id: "logout", label: "Đăng xuất", icon: "../../assets/images/icon/logout.svg"  }
     ];
-
+    if (user && user.role !== "user") {
+        menuItems.splice(0, 0, // Chèn các mục Excel vào trước "Đăng xuất"
+            { id: "btnCreate", label: "Tạo mới", icon: "../../assets/images/icon/create.svg"  },
+        );
+    }
     menuItems.forEach(item => {
         $('#menu').append(`<li><a href="javascript:void(0)" id="${item.id}">
             <img src="${item.icon}" class="icon"/>
@@ -70,11 +73,11 @@ $(document).ready(function () {
                 <tr data-id="${report.id}">
                     <td>${index + 1}</td>
                     <td>${report.title}</td>
-                    <td>${formatDateDMY(report.created_at)}</td>
+                    // <td>${formatDateDMY(report.created_at)}</td>
                     <td>
                         <a class="btn-action btn-info btn-view" href="javascript:void(0)"><img src="../../assets/images/icon/icon-eye.svg" class="icon" alt="Chi tiết"> Xem</a>
-                        <a class="btn-action btn-primary btn-edit" href="javascript:void(0)"><img src="../../assets/images/icon/icon-edit.svg" class="icon" alt="Sửa"> Sửa</a>
-                        <a class="btn-action btn-danger delete-btn" href="javascript:void(0)"><img src="../../assets/images/icon/icon-remove.svg" class="icon" alt="Xoá"> Xoá</a>
+                        ${user.role === 'admin' ? `<a class="btn-action btn-primary btn-edit" href="javascript:void(0)"><img src="../../assets/images/icon/icon-edit.svg" class="icon" alt="Sửa"> Sửa</a>` : ""}
+                        ${user.role === 'admin' ? `<a class="btn-action btn-danger delete-btn" href="javascript:void(0)"><img src="../../assets/images/icon/icon-remove.svg" class="icon" alt="Xoá"> Xoá</a>` : ""}
                     </td>
                 </tr>
             `);

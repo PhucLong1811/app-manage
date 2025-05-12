@@ -1,6 +1,6 @@
 body {
     font-family: "Times New Roman", Times, serif;
-    font-size: 13pt;
+    font-size: 14pt;
     line-height: 1.3;
 }
 .bold {
@@ -118,7 +118,7 @@ body {
 
 .card-detail {
     width: 595.28pt;
-    height: 841.89pt;
+    min-height: 841.89pt;
     padding: 0;
 }
 .inputStyle {
@@ -127,7 +127,7 @@ body {
     flex: 1; 
     min-width: 50px;
     width: 100%;
-    font-size: 13pt;
+    font-size: 14pt;
     font-family: "Times New Roman", Times, serif !important;
 }
 .inputStyle.small-20{
@@ -200,7 +200,7 @@ body {
 }
 #document {
     font-family: "Times New Roman", Times, serif;
-    font-size: 13pt;
+    font-size: 14pt;
     padding: 2cm 1.5cm 0 3cm;
     width: 210mm;
 }
@@ -208,10 +208,10 @@ body {
     position: relative;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     border-bottom: 0;
     margin-bottom: 20px;
-    font-size: 13pt;
+    font-size: 14pt;
 }
 #document .cardHeader.center {
     justify-content: center;
@@ -225,7 +225,7 @@ body {
 #document .cardHeader .leftHeader .txt ,
 #document .cardHeader .centerHeader .txt,
 #document .cardHeader .centerHeader .txt{
-    font-size: 13pt;
+    font-size: 14pt;
 }
 #document .cardHeader .leftHeader .txt .inputStyle {
     border: 0;
@@ -237,7 +237,7 @@ body {
 #document .cardHeader .rightHeader .txtItalic {
     font-style: italic;
 }
-#document .cardHeader .leftHeader .txt:last-child,
+#document .cardHeader .leftHeader .txt.number,
 #document .cardHeader .rightHeader .txt:last-child {
     margin-top: 10px;
 }
@@ -284,7 +284,7 @@ body {
 }
 #document .cardBody .areaTitle .title {
     text-align: center;
-    font-size: 13pt;
+    font-size: 14pt;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -292,7 +292,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13pt;
+    font-size: 14pt;
     font-weight: bold;
 }
 #document .cardBody .cardInfo {
@@ -339,14 +339,14 @@ body {
 }
 #document .cardBody .cardInfo .areaInfo .info .label {
     font-family: "Times New Roman", Times, serif;
-    font-size: 13pt;
+    font-size: 14pt;
 }
 #document .cardBody .cardInfo .areaInfo .info .inputStyle {
     border: 0;
     border-bottom: 1px dashed #000;
     flex: 1; 
     min-width: 50px;
-    font-size: 13pt;
+    font-size: 14pt;
     font-family: "Times New Roman", Times, serif;
 }
 #document .cardBody .cardInfo .areaInfo .info .label .content {
@@ -366,7 +366,7 @@ body {
 }
 .cardFooter .signature .areaSignature .titleSignature {
     text-align: center;
-    font-size: 13pt;
+    font-size: 14pt;
     font-weight: bold;
     text-transform: uppercase;
 
@@ -382,13 +382,13 @@ body {
 }
 .cardFooter .signature .areaSignature .fullNameSignature {
     text-align: center;
-    font-size: 13pt;
+    font-size: 14pt;
     font-weight: bold;
     text-transform: uppercase;
 }
 .cardFooter .signature .areaSignature .fullNameSignature .inputStyle {
     text-align: center;
-    font-size: 13pt;
+    font-size: 14pt;
     border: 0;
     border-bottom: 1px dashed #000;
     width: 100%;

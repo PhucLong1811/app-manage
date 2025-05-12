@@ -1,3 +1,6 @@
+#document {
+    padding: 2cm 1.5cm 0 2.5cm;
+}
 #document .cardHeader {
     position: relative;
 }

@@ -2,13 +2,13 @@
     {
         "id": 1,
         "username": "admin",
-        "password": "$2b$10$OuNiNFVUUdOFVvVYJUtNu.QImE.cVqMfEktTFbpuk2ZzJXsSpLvZi",
+        "password": "$2b$10$bmDNqlC64gvE79fB.l5Y4uA7tB/4BrwjqPjaUSmql5V8k8Oz17Sja",
         "role": "admin"
     },
     {
         "id": 2,
         "username": "user",
-        "password": "$2b$10$OuNiNFVUUdOFVvVYJUtNu.QImE.cVqMfEktTFbpuk2ZzJXsSpLvZi",
+        "password": "$2b$10$bmDNqlC64gvE79fB.l5Y4uA7tB/4BrwjqPjaUSmql5V8k8Oz17Sja",
         "role": "user"
     }
 ]

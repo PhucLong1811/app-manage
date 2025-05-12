@@ -18,14 +18,18 @@ function addEditor() {
         language_url: '../../assets/language/tinymce-vi.js',
         language: 'vi',
         plugins: 'table',
-        toolbar: 'formatselect | blocks fontfamily fontsizeinput lineheight bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent | table tableprops tablecellprops | customMargin',
+        toolbar: 'formatselect | blocks fontfamily fontsize lineheight bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent | table tableprops tablecellprops | customMargin lineheightCustom',
         toolbar_mode: 'wrap',
-        fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt 48pt 72pt',
+        font_size_formats: '8pt 9pt 10pt 11pt 12pt 13pt 14pt 15pt 16pt 17pt 18pt 19pt 20pt 21pt 22pt 23pt 24pt 36pt 48pt 72pt',
+        line_height_formats: '0.5 1 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2 2.1 2.2 2.3 2.4 2.5',
+        content_css: "../../assets/css/reset-word.css",
         content_style: `
         body {
                 margin: 0;
                 width: 794px;  /* Chiều rộng của giấy A4 */
                 height: 1123px; /* Chiều cao của giấy A4 */
+                font-size: 14pt;
+                background: #fff;
             }
         `,
         // content_css: "../../assets/css/base.css",

@@ -114,3 +114,49 @@ background-color: #F9FAFB;
 #dataTable th:last-child {
     width: 150px;
 }
+table.dataTable tbody tr>.dtfc-fixed-left, table.dataTable tbody tr>.dtfc-fixed-right {
+    background-color: #EBF9FF;
+}
+/* Ghi đè màu nền và shadow của các cột cố định */
+.dtfc-fixed-left td {
+    background-color: #e9f7fd !important; /* Màu nền bảng */
+    box-shadow: none !important;
+    z-index: 2;
+}
+
+/* Loại bỏ border trắng nếu có */
+.dtfc-fixed-left {
+    border-right: 1px solid #ccc !important;
+}
+
+/* Đảm bảo phần còn lại khớp nền */
+table.dataTable tbody td {
+    background-color: #e9f7fd !important;
+}
+#dataTable th.stt,
+#dataTable td.stt {
+    width: 30px !important;
+}
+#dataTable th.lastName,
+#dataTable td.lastName {
+    width: 105px !important;
+    left: 65.1406px !important;
+}
+#dataTable th.firstName,
+#dataTable td.firstName {   
+    width: 33px !important;
+    left: 178px !important;
+}
+#dataTable th.gender,
+#dataTable td.gender {
+    width: 32px !important;
+    left: 246px !important;
+}
+#dataTable th.birthYear,
+#dataTable td.birthYear {
+    width: 33px !important;
+    left: 314px !important;
+}
+table#dataTable tbody tr > .dtfc-fixed-left{
+    background-color: #e9f7fd !important;
+}

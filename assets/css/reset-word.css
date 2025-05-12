@@ -7,7 +7,7 @@
 /* Toàn bộ văn bản theo chuẩn Word */
 body {
     font-family: 'Times New Roman', serif;
-    font-size: 13pt;
+    font-size: 14pt;
     line-height: 1.5;
     text-align: justify;
     /* margin: 2.5cm; */
@@ -33,9 +33,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* Định dạng đoạn văn */
 p {
-    font-size: 13pt;
+    font-size: 14pt;
     text-align: justify;
-    margin-bottom: 10px;
+    /* margin-bottom: 5px; */
 }
 
 /* Danh sách không có dấu chấm đầu dòng */

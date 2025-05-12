@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const setupRoutes = require('./router');
-
+const dataPath = path.join(app.getPath('userData'), 'data');
 let mainWindow;
 let historyStack = [];
 
@@ -15,6 +15,8 @@ app.whenReady().then(() => {
             contextIsolation: false
         }
     });
+    const userDataPath = app.getPath('userData');
+    console.log('📁 userData path:', userDataPath);
     app.commandLine.appendSwitch('lang', 'vi');
     mainWindow.loadFile("views/login.html");
     mainWindow.maximize();
@@ -41,7 +43,14 @@ app.whenReady().then(() => {
     };
 
     setupRoutes(ipcMain, mainWindow, navigateTo, historyStack);
-
+    function getDataFilePath(fileName) {
+        return path.join(dataPath, fileName);
+      }
+      
+    // Gửi đường dẫn tới renderer khi yêu cầu
+    ipcMain.handle('get-data-file-path', (event, fileName) => {
+    return getDataFilePath(fileName);
+    });
     app.on('window-all-closed', () => {
         if (process.platform !== 'darwin') app.quit();
     });

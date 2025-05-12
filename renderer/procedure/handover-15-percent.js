@@ -72,8 +72,8 @@ $(document).ready(function () {
         tempDiv.css({ position: "absolute", left: "-9999px", top: "0" });
         $("body").append(tempDiv);
 
-        // Nếu bảng có >= 4 hàng thì tách areaInfo + cardFooter sang trang khác
-        if (rowsCount >= 4 && originalCardFooter.length) {
+        // Nếu bảng có >= 2 hàng thì tách areaInfo + cardFooter sang trang khác
+        if (rowsCount >= 2 && originalCardFooter.length) {
             // Clone areaInfo & cardFooter
             const areaInfoClone = originalAreaInfo.clone();
             const cardFooterClone = originalCardFooter.clone();
@@ -126,7 +126,7 @@ $(document).ready(function () {
                 }, 200); // Đợi render DOM
             });
         } else {
-            // Nếu < 4 hàng thì xuất bình thường
+            // Nếu < 2 hàng thì xuất bình thường
             html2canvas(tempDiv[0], { scale: 3 }).then((canvas) => {
                 const pdf = new jsPDF("p", "mm", "a4");
                 const imgWidth = 210;

@@ -1,4 +1,4 @@
-const { ipcRenderer, remote } = require('electron');
+const { ipcRenderer, remote, app } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const $ = require('jquery');
@@ -15,8 +15,8 @@ pdfMake.fonts = {
 };
 const Swal = require('sweetalert2');
 
-const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
 const user = JSON.parse(sessionStorage.getItem("user"));
+const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
 const dataUserPath = path.join(__dirname, '../..', 'data', 'user.json');
 function formatDateDMY(dateStr) {
     if (dateStr == '') return '';
@@ -29,6 +29,9 @@ function formatDateYMD(dateStr) {
 function renderMenu() {
     const menuItems = [
         { id: "btnCreate", label: "Tạo mới", icon: "../../assets/images/icon/create.svg" },
+        { id: "btnExportExcel", label: "Xuất Excel", icon: "../../assets/images/icon/export-file.svg" },
+        // { id: "exportPdfBtn", label: "Xuất Pdf", icon: "../../assets/images/icon/export-file.svg" },
+        { id: "filterExportExcel", label: "Lọc danh sách", icon: "../../assets/images/icon/filter.svg" },
         { id: "logout", label: "Đăng xuất", icon: "../../assets/images/icon/logout.svg" }
     ];
 
@@ -36,9 +39,6 @@ function renderMenu() {
         menuItems.splice(1, 0, // Chèn các mục Excel vào trước "Đăng xuất"
             { id: "btnRemoveAll", label: "Xoá tất cả dữ liệu", icon: "../../assets/images/icon/icon-remove-2.svg" },
             { id: "btnImportExcel", label: "Nhập Excel", icon: "../../assets/images/icon/import-file.svg" },
-            { id: "btnExportExcel", label: "Xuất Excel", icon: "../../assets/images/icon/export-file.svg" },
-            // { id: "exportPdfBtn", label: "Xuất Pdf", icon: "../../assets/images/icon/export-file.svg" },
-            { id: "filterExportExcel", label: "Lọc danh sách", icon: "../../assets/images/icon/filter.svg" }
         );
     }
 
@@ -146,11 +146,11 @@ $(document).ready(function () {
             jsonData.forEach((item, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${item.last_name}</td>
-                <td>${item.first_name}</td>
-                <td>${item.gender}</td>
-                <td>${moment(item.birthdate, 'YYYY-MM-DD').format('YYYY')}</td>
+                <td class="stt">${index + 1}</td>
+                <td class="lastName">${item.last_name}</td>
+                <td class="firstName">${item.first_name}</td>
+                <td class="gender">${item.gender}</td>
+                <td class="birthYear">${moment(item.birthdate, 'YYYY-MM-DD').format('YYYY')}</td>
                 <td>${item.ethnicity}</td>
                 <td>${item.nation}</td>
                 <td>${item.hometown}</td>
@@ -172,7 +172,7 @@ $(document).ready(function () {
                 <td class="action">
                     <a class="btn-action btn-info detail-button" data-id="${item.id}" href="javascript:void(0)"><img src="../../assets/images/icon/icon-eye.svg" class="icon" alt="Chi tiết"></a>
                     <a class="btn-action btn-primary edit-btn" data-id="${item.id}" href="javascript:void(0)"><img src="../../assets/images/icon/icon-edit.svg" class="icon" alt="Sửa"></a>
-                    ${user.role === 'admin' ? `<a class="btn-action btn-danger delete-btn" data-id="${item.id}" href="javascript:void(0)"><img src="../../assets/images/icon/icon-remove.svg" class="icon" alt="Xoá"></a>` : ""}
+                    <a class="btn-action btn-danger delete-btn" data-id="${item.id}" href="javascript:void(0)"><img src="../../assets/images/icon/icon-remove.svg" class="icon" alt="Xoá"></a>
                     
                 </td>
             `;
@@ -180,6 +180,9 @@ $(document).ready(function () {
             });
 
             const tableManageUsers = $('#dataTable').DataTable({
+                fixedColumns: {
+                    leftColumns: 5 // Cố định 5 cột đầu tiên (STT đến ngày sinh)
+                },
                 pageLength: 10,
                 lengthChange: true,
                 ordering: true,
@@ -297,46 +300,52 @@ $(document).ready(function () {
             }
         });
     });
+    // Hàm xóa dữ liệu (giả sử bạn cần lấy file `data.json`)
     function deleteData(id) {
-        fs.readFile(dataFilePath, 'utf8', (err, data) => {
-            if (err) {
-                console.error('Lỗi đọc JSON:', err);
-                return;
-            }
-
-            let jsonData = JSON.parse(data);
-
-            // Nếu có id, chỉ xóa phần tử có id đó, nếu không xóa tất cả
-            let updatedData = id ? jsonData.filter(item => item.id !== id) : [];
-
-            fs.writeFile(dataFilePath, JSON.stringify(updatedData, null, 2), 'utf8', (err) => {
+        // Lấy đường dẫn đến file 'data.json' từ main process
+        ipcRenderer.invoke('get-data-file-path', 'data.json').then((dataFilePath) => {
+            console.log(dataFilePath,'dataFilePath123')
+            fs.readFile(dataFilePath, 'utf8', (err, data) => {
                 if (err) {
-                    console.error('Lỗi ghi JSON:', err);
+                    console.error('Lỗi đọc JSON:', err);
                     return;
                 }
 
-                // Cập nhật bảng sau khi xóa dữ liệu
-                let table = $('#dataTable').DataTable();
+                let jsonData = JSON.parse(data);
 
-                if (id) {
-                    // Nếu có id, chỉ xóa hàng tương ứng
-                    table.row($(`.delete-btn[data-id="${id}"]`).parents('tr')).remove().draw();
-                    // Cập nhật lại STT trong bảng
-                    $('#dataTable tbody tr').each((index, row) => {
-                        $(row).find('td:first').text(index + 1);
-                    });
-                } else {
-                    // Nếu không có id, xóa toàn bộ bảng
-                    table.clear().draw();
-                }
+                // Nếu có id, chỉ xóa phần tử có id đó, nếu không xóa tất cả
+                let updatedData = id ? jsonData.filter(item => item.id !== id) : [];
+                const contentToWrite = JSON.stringify(updatedData, null, 2);
+
+                fs.writeFile(dataFilePath, contentToWrite, 'utf8', (err) => {
+                    if (err) {
+                        console.error('Lỗi ghi JSON:', err);
+                        return;
+                    }
+
+                    // Cập nhật bảng sau khi xóa dữ liệu
+                    let table = $('#dataTable').DataTable();
+
+                    if (id) {
+                        table.row($(`.delete-btn[data-id="${id}"]`).parents('tr')).remove().draw();
+                        $('#dataTable tbody tr').each((index, row) => {
+                            $(row).find('td:first').text(index + 1);
+                        });
+                    } else {
+                        table.clear().draw();
+                    }
+                    console.log('Ghi tệp thành công!');
+                });
             });
+        }).catch((err) => {
+            console.error('Lỗi lấy dataFilePath từ main process:', err);
         });
     }
 
 
     // ✅ Xuất Excel
     $('#menu').on('click', '#btnExportExcel', () => {
-        if (user && user.role === 'user') return false;
+        // if (user && user.role === 'user') return false;
 
         $.when(
             $.getJSON(dataFilePath),
