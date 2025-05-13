@@ -6,7 +6,10 @@ const moment = require('moment');
 const Swal = require('sweetalert2');
 
 const user = JSON.parse(sessionStorage.getItem("user"));
-const reportFilePath = path.join(__dirname, '../..', 'data', 'report.json');
+
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
 
 function formatDateDMY(dateStr) {
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
@@ -30,7 +33,8 @@ function renderMenu() {
             </li>`);
     });
 }
-function deleteData(id) {
+async function deleteData(id) {
+    const reportFilePath = await getDataFilePath('report.json');
     fs.readFile(reportFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Lỗi đọc JSON:', err);
@@ -57,7 +61,8 @@ function deleteData(id) {
 $(document).ready(function () {
     const tableBody = $("#reportTable tbody");
     $('#btnBack').on('click', () => ipcRenderer.send("open-main"))
-    function loadReports() {
+    async function loadReports() {
+        const reportFilePath = await getDataFilePath('report.json');
         if (!fs.existsSync(reportFilePath)) {
             console.warn("File report.json không tồn tại.");
             return;

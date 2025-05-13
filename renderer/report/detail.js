@@ -6,7 +6,9 @@ const moment = require('moment');
 const html2canvas = require("html2canvas");
 const { jsPDF } = require("jspdf");
 
-const filePath = path.join(__dirname, "../..", "data", "report.json");
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
 
 // Format Date helper functions
 function formatDateDMY(dateStr) {
@@ -33,7 +35,8 @@ function updatePadding() {
 }
 
 // Load report data based on the provided report ID
-function loadData(id) {
+async function loadData(id) {
+    const filePath = await getDataFilePath('report.json');
     if (!fs.existsSync(filePath)) return;
 
     const reports = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -82,7 +85,8 @@ $(document).ready(function () {
     $("#selectMarginFile input").on("input", updatePadding);
 
     // Export PDF functionality
-    $("#btnExportPdf").on("click", function () {
+    $("#btnExportPdf").on("click", async function () {
+        const filePath = await getDataFilePath('report.json');
         const title = $(this).data('title') || 'Biên bản';
         const element = $("#areaReport");
 

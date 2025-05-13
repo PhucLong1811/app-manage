@@ -1,4 +1,5 @@
-function showUserDataBySelect() {
+async function showUserDataBySelect() {
+    const dataFilePath = await getDataFilePath('data.json');
     try {
         const jsonData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
         jsonData.forEach(({ id, last_name, first_name }) => {
@@ -9,7 +10,8 @@ function showUserDataBySelect() {
     }
 }
 
-function loadUserData(ids) {
+async function loadUserData(ids) {
+    const dataFilePath = await getDataFilePath('data.json');
     $.getJSON(dataFilePath, function (data) {
         const fragment = document.createDocumentFragment();
         ids.forEach((id, index) => {

@@ -6,6 +6,9 @@ const moment = require('moment');
 require('jquery-validation');
 const Swal = require('sweetalert2');
 
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
 // Định dạng ngày tháng
 function formatDateDMY(dateStr) {
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
@@ -100,8 +103,8 @@ function addEditor(callback) {
 }
 
 // Tải dữ liệu báo cáo từ file JSON
-function loadData(id) {
-    const filePath = path.join(__dirname, "../..", "data", "report.json");
+async function loadData(id) {
+    const filePath = await getDataFilePath('report.json');
     if (!fs.existsSync(filePath)) return;
 
     const reports = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -136,8 +139,8 @@ function loadData(id) {
     trySetContent();
 }
 // Hàm cập nhật báo cáo trong file JSON
-function updateReport(reportId, newTitle, newContent) {
-    const filePath = path.join(__dirname, "../..", "data", "report.json");
+async function updateReport(reportId, newTitle, newContent) {
+    const filePath = await getDataFilePath('report.json');
     const topMargin = $('#editForm #margin-top').val();
     const rightMargin = $('#editForm #margin-right').val();
     const bottomMargin = $('#editForm #margin-bottom').val();

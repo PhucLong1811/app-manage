@@ -6,7 +6,10 @@ const moment = require('moment');
 const Swal = require('sweetalert2');
 
 const user = JSON.parse(sessionStorage.getItem("user"));
-const procedureFilePath = path.join(__dirname, '../..', 'data', 'procedure.json');
+
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
 
 function formatDateDMY(dateStr) {
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
@@ -31,7 +34,8 @@ function renderMenu() {
 $(document).ready(function () {
     const procedureTable = $('#procedureTable');
     const tableBody = $("#procedureTable tbody");
-    function loadProcedures() {
+    async function loadProcedures() {
+        const procedureFilePath = await getDataFilePath('procedure.json');
         if (!fs.existsSync(procedureFilePath)) {
             console.warn("File report.json không tồn tại.");
             return;
@@ -54,7 +58,6 @@ $(document).ready(function () {
                 </tr>
             `);
         });
-        console.log(tableBody,'procedures')
         // Khởi tạo DataTable nếu chưa có
         if (!$.fn.DataTable.isDataTable("#procedureTable")) {
             procedureTable.DataTable({

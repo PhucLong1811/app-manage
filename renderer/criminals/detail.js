@@ -3,8 +3,9 @@ const { ipcRenderer } = require('electron');
 const path = require('path');
 const moment = require('moment');
 
-const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
-const dataUserPath = path.join(__dirname, '../..', 'data', 'user.json');
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
 /**
  * Chuyển đổi ngày từ 'YYYY-MM-DD' về 'DD/MM/YYYY' để lưu vào JSON
  * @param {string} dateStr - Ngày dưới dạng chuỗi 'YYYY-MM-DD'
@@ -13,20 +14,24 @@ const dataUserPath = path.join(__dirname, '../..', 'data', 'user.json');
 function formatDate(dateStr) {
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
 }
-
+async function goToEdit(id) {
+    const dataFilePath = await getDataFilePath('data.json');
+    $.getJSON(dataFilePath, function(data) {
+        const selectedItem = data.find(item => item.id === parseInt(id));
+        console.log(id,'data')
+        if (selectedItem) {
+            ipcRenderer.send('open-edit', selectedItem);
+        }
+    })
+    
+}
 $(document).ready(function () {
     $('#btnBack').on('click', () => {
         ipcRenderer.send('open-list');
     });
     $('.edit-btn').on('click', function () {
         const id = $(this).data('id');
-        $.getJSON(dataFilePath, function(data) {
-            const selectedItem = data.find(item => item.id === parseInt(id));
-            console.log(id,'data')
-            if (selectedItem) {
-                ipcRenderer.send('open-edit', selectedItem);
-            }
-        })
+        goToEdit(id);
     });
 
     let storedItem = sessionStorage.getItem('selectedItem');
@@ -39,7 +44,9 @@ $(document).ready(function () {
         loadUserData(item);
     });
 
-    function loadUserData(item) {
+    async function loadUserData(item) {
+        const dataFilePath = await getDataFilePath('data.json');
+        const dataUserPath = await getDataFilePath('user.json');
         $.getJSON(dataFilePath, function (data) {
             const user = data.find((data) => data.id === item);
             if (!user) return;

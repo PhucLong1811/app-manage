@@ -7,11 +7,15 @@ const { jsPDF } = require("jspdf");
 const fs = require('fs');
 const html2canvas = require("html2canvas");
 
-const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
+
 function formatDate(dateStr) {
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
 }
-function showUserDataBySelect() {
+async function showUserDataBySelect() {
+    const dataFilePath = await getDataFilePath('data.json');
     try {
         const jsonData = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
         jsonData.forEach(({ id, last_name, first_name }) => {
@@ -21,7 +25,8 @@ function showUserDataBySelect() {
         console.error("Lỗi:", error);
     }
 }
-function loadUserData(id) {
+async function loadUserData(id) {
+    const dataFilePath = await getDataFilePath('data.json');
     const today = moment().format("[ngày] DD [tháng] MM [năm] YYYY");
     $('.today').text(today);
     $.getJSON(dataFilePath, function (data) {

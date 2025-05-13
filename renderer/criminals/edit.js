@@ -10,10 +10,14 @@ const { Vietnamese } = require('flatpickr/dist/l10n/vn.js');
 const monthSelectPlugin = require("flatpickr/dist/plugins/monthSelect/index.js");
 
 const user = JSON.parse(sessionStorage.getItem("user"));
-const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
 
 let currentId = null; // ID của item đang chỉnh sửa
 let noVisitDate = null;
+
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
+
 /**
  * Điền dữ liệu vào form chỉnh sửa
  * @param {Object} item - Dữ liệu item được chọn để chỉnh sửa
@@ -83,7 +87,8 @@ function formatMonthMY(dateStr) {
 /**
  * Cập nhật dữ liệu item vào JSON
  */
-function updateItemData() {
+async function updateItemData() {
+    const dataFilePath = await getDataFilePath('data.json');
     fs.readFile(dataFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Lỗi khi đọc file JSON:', err);
@@ -157,7 +162,24 @@ function updateItemData() {
 ipcRenderer.on('edit-item', (event, item) => {
     populateEditForm(item);
 });
-
+async function loadDataByStoredId (currentId) {
+    const dataFilePath = await getDataFilePath('data.json');
+    fs.readFile(dataFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Lỗi khi đọc file JSON:', err);
+            return;
+        }
+        try {
+            const jsonData = JSON.parse(data);
+            const item = jsonData.find(i => i.id == currentId);
+            if (item) {
+                populateEditForm(item);
+            }
+        } catch (parseError) {
+            console.error('Lỗi khi parse JSON:', parseError);
+        }
+    });
+}
 // Khởi tạo validate form và xử lý submit
 $(document).ready(function () {
     flatpickr(".inputDate", {
@@ -197,21 +219,7 @@ $(document).ready(function () {
 
     if (storedId) {
         currentId = storedId;
-        fs.readFile(dataFilePath, 'utf8', (err, data) => {
-            if (err) {
-                console.error('Lỗi khi đọc file JSON:', err);
-                return;
-            }
-            try {
-                const jsonData = JSON.parse(data);
-                const item = jsonData.find(i => i.id == currentId);
-                if (item) {
-                    populateEditForm(item);
-                }
-            } catch (parseError) {
-                console.error('Lỗi khi parse JSON:', parseError);
-            }
-        });
+        loadDataByStoredId(currentId)
     }
     $.validator.addMethod("validAge", function (value, element) {
         var birthDate = new Date(formatDateYMD(value)); // Chuyển đổi input thành ngày tháng

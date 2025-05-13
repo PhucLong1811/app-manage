@@ -10,7 +10,10 @@ const flatpickr = require('flatpickr');
 const { Vietnamese } = require('flatpickr/dist/l10n/vn.js');
 const monthSelectPlugin = require("flatpickr/dist/plugins/monthSelect/index.js");
 
-const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
+
 /**
  * Chuyển đổi ngày từ 'DD/MM/YYYY' sang 'YYYY-MM-DD' (phù hợp với input[type=date])
  * @param {string} dateStr - Ngày dưới dạng chuỗi 'DD/MM/YYYY'
@@ -37,6 +40,67 @@ function formatMonthMY(dateStr) {
     if (dateStr == '') return '';
     return moment(dateStr, 'YYYY-MM').format('MM/YYYY');
 }
+async function createData() {
+    const dataFilePath = await getDataFilePath('data.json');
+    const formDataArray = $('#createForm').serializeArray();
+    const formattedData = formDataArray.map(({ name, value }) => {
+        switch (name) {
+            case 'birthdate':
+            case 'arrest_date':
+            case 'prison_entry':
+            case 'visit':
+            case 'send':
+                return {
+                    name,
+                    value: formatDateYMD(value)
+                };
+            case 'comment':
+                return {
+                    name,
+                    value: formatMonthYM(value)
+                };
+            default:
+                return { name, value };
+        }
+    });
+    const newItem = {
+        id: Date.now(),
+        created_by_user: user?.id || "",
+        created_at: Date.now(),
+        updated_by_user: "",
+        updated_at: "",
+        ...Object.fromEntries(formattedData.map(({ name, value }) => [name, value]))
+    };
+
+    fs.readFile(dataFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Lỗi khi đọc file JSON:', err);
+            return;
+        }
+
+        try {
+            const jsonData = JSON.parse(data);
+            jsonData.push(newItem);
+
+            fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
+                if (err) {
+                    console.error('Lỗi khi ghi file JSON:', err);
+                    return;
+                }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thêm mới thành công!',
+                    timer: 2000,  // Tự đóng sau 2 giây
+                    showConfirmButton: false
+                }).then(() => {
+                    ipcRenderer.send('open-list');
+                });
+            });
+        } catch (parseError) {
+            console.error('Lỗi khi parse JSON:', parseError);
+        }
+    });
+}
 $(document).ready(function () {
     flatpickr(".inputDate", {
         locale: Vietnamese,
@@ -58,7 +122,7 @@ $(document).ready(function () {
     });
     $("#no_visit").on('change', (event) => {
         const no_visit_date = $('#no_visit_date').closest('.form-group')
-        if(event.target.value === 'Không'){
+        if (event.target.value === 'Không') {
             !no_visit_date.hasClass('hide') && no_visit_date.addClass('hide')
             $('#no_visit_date').val('')
         } else {
@@ -150,73 +214,16 @@ $(document).ready(function () {
                 } else {
                     parent = element.parent().parent();
                 }
-            }else if(element.hasClass('password')){
+            } else if (element.hasClass('password')) {
                 parent = element.parent().parent();
-            }else {
+            } else {
                 parent = element.parent();
             }
             parent.append(error);
 
         },
         submitHandler: function (form) {
-            const formDataArray = $('#createForm').serializeArray();
-            const formattedData = formDataArray.map(({ name, value }) => {
-                switch (name) {
-                    case 'birthdate':
-                    case 'arrest_date':
-                    case 'prison_entry':
-                    case 'visit':
-                    case 'send':
-                        return {
-                            name,
-                            value: formatDateYMD(value)
-                        };
-                    case 'comment':
-                        return {
-                            name,
-                            value: formatMonthYM(value)
-                        };
-                    default:
-                        return { name, value };
-                }
-            });
-            const newItem = {
-                id: Date.now(),
-                created_by_user: user?.id || "",
-                created_at: Date.now(),
-                updated_by_user: "",
-                updated_at: "",
-                ...Object.fromEntries(formattedData.map(({ name, value }) => [name, value]))
-            };
-
-            fs.readFile(dataFilePath, 'utf8', (err, data) => {
-                if (err) {
-                    console.error('Lỗi khi đọc file JSON:', err);
-                    return;
-                }
-
-                try {
-                    const jsonData = JSON.parse(data);
-                    jsonData.push(newItem);
-
-                    fs.writeFile(dataFilePath, JSON.stringify(jsonData, null, 2), (err) => {
-                        if (err) {
-                            console.error('Lỗi khi ghi file JSON:', err);
-                            return;
-                        }
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Thêm mới thành công!',
-                            timer: 2000,  // Tự đóng sau 2 giây
-                            showConfirmButton: false
-                        }).then(() => {
-                            ipcRenderer.send('open-list');
-                        });
-                    });
-                } catch (parseError) {
-                    console.error('Lỗi khi parse JSON:', parseError);
-                }
-            });
+            createData();
         }
     });
 });

@@ -1,10 +1,36 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const fs = require('fs');
 const path = require('path');
 const setupRoutes = require('./router');
 const dataPath = path.join(app.getPath('userData'), 'data');
 let mainWindow;
 let historyStack = [];
 
+function copyDataFilesIfNeeded() {
+    const sourceDir = path.join(__dirname, 'data');
+    const destDir = path.join(app.getPath('userData'), 'data');
+  
+    // Tạo thư mục đích nếu chưa tồn tại
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+  
+    // Danh sách các file cần sao chép
+    const filesToCopy = ['data.json', 'procedure.json', 'report.json', 'user.json'];
+  
+    filesToCopy.forEach(fileName => {
+      const sourcePath = path.join(sourceDir, fileName);
+      const destPath = path.join(destDir, fileName);
+  
+      // Nếu file chưa tồn tại ở userData thì sao chép
+      if (!fs.existsSync(destPath)) {
+        fs.copyFileSync(sourcePath, destPath);
+        console.log(`✅ Đã sao chép ${fileName} vào userData`);
+      } else {
+        console.log(`ℹ️ File ${fileName} đã tồn tại trong userData, không sao chép`);
+      }
+    });
+}
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow({
         width: 1400,
@@ -15,8 +41,8 @@ app.whenReady().then(() => {
             contextIsolation: false
         }
     });
+    copyDataFilesIfNeeded();
     const userDataPath = app.getPath('userData');
-    console.log('📁 userData path:', userDataPath);
     app.commandLine.appendSwitch('lang', 'vi');
     mainWindow.loadFile("views/login.html");
     mainWindow.maximize();

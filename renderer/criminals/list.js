@@ -16,8 +16,11 @@ pdfMake.fonts = {
 const Swal = require('sweetalert2');
 
 const user = JSON.parse(sessionStorage.getItem("user"));
-const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
-const dataUserPath = path.join(__dirname, '../..', 'data', 'user.json');
+
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
+
 function formatDateDMY(dateStr) {
     if (dateStr == '') return '';
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
@@ -65,6 +68,7 @@ $(document).ready(function () {
     });
 
     function renderFilter(data) {
+        console.log(data,'zxcxzczx')
         try {
             let jsonData = JSON.parse(data);
             let zoneCountMap = {};
@@ -126,7 +130,8 @@ $(document).ready(function () {
         }
     }
     // Tải dữ liệu từ file JSON
-    function loadData() {
+    async function loadData() {
+        const dataFilePath = await getDataFilePath('data.json');
         fs.readFile(dataFilePath, 'utf8', (err, data) => {
             if (err) {
                 console.error('Lỗi đọc JSON:', err);
@@ -300,24 +305,20 @@ $(document).ready(function () {
             }
         });
     });
-    // Hàm xóa dữ liệu (giả sử bạn cần lấy file `data.json`)
-    function deleteData(id) {
-        // Lấy đường dẫn đến file 'data.json' từ main process
-        ipcRenderer.invoke('get-data-file-path', 'data.json').then((dataFilePath) => {
-            console.log(dataFilePath,'dataFilePath123')
-            fs.readFile(dataFilePath, 'utf8', (err, data) => {
-                if (err) {
-                    console.error('Lỗi đọc JSON:', err);
-                    return;
-                }
+    async function deleteData(id) {
+        const dataFilePath = await getDataFilePath('data.json');
+        fs.readFile(dataFilePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Lỗi đọc JSON:', err);
+                return;
+            }
 
-                let jsonData = JSON.parse(data);
+            let jsonData = JSON.parse(data);
 
-                // Nếu có id, chỉ xóa phần tử có id đó, nếu không xóa tất cả
-                let updatedData = id ? jsonData.filter(item => item.id !== id) : [];
-                const contentToWrite = JSON.stringify(updatedData, null, 2);
-
-                fs.writeFile(dataFilePath, contentToWrite, 'utf8', (err) => {
+            // Nếu có id, chỉ xóa phần tử có id đó, nếu không xóa tất cả
+            let updatedData = id ? jsonData.filter(item => item.id !== id) : [];
+            try {
+                fs.writeFile(dataFilePath, JSON.stringify(updatedData, null, 2), 'utf8', (err) => {
                     if (err) {
                         console.error('Lỗi ghi JSON:', err);
                         return;
@@ -327,26 +328,31 @@ $(document).ready(function () {
                     let table = $('#dataTable').DataTable();
 
                     if (id) {
+                        // Nếu có id, chỉ xóa hàng tương ứng
                         table.row($(`.delete-btn[data-id="${id}"]`).parents('tr')).remove().draw();
+                        // Cập nhật lại STT trong bảng
                         $('#dataTable tbody tr').each((index, row) => {
                             $(row).find('td:first').text(index + 1);
                         });
                     } else {
+                        // Nếu không có id, xóa toàn bộ bảng
                         table.clear().draw();
                     }
+                    renderFilter(JSON.stringify(updatedData))
                     console.log('Ghi tệp thành công!');
                 });
-            });
-        }).catch((err) => {
-            console.error('Lỗi lấy dataFilePath từ main process:', err);
+            } catch (writeError) {
+                console.error('Lỗi ghi dữ liệu với fs.writeFile:', writeError);
+            }
         });
     }
 
 
     // ✅ Xuất Excel
-    $('#menu').on('click', '#btnExportExcel', () => {
+    $('#menu').on('click', '#btnExportExcel', async() => {
         // if (user && user.role === 'user') return false;
-
+        const dataFilePath = await getDataFilePath('data.json');
+        const dataUserPath = await getDataFilePath('user.json');
         $.when(
             $.getJSON(dataFilePath),
             $.getJSON(dataUserPath)
@@ -433,7 +439,8 @@ $(document).ready(function () {
         })
     );
 
-    ipcRenderer.on('import-success', (event, data) => {
+    ipcRenderer.on('import-success', async(event, data) => {
+        const dataFilePath = await getDataFilePath('data.json');
         let dataFilterKhu = $("#filterKhu").val();
         let dataFilterBuong = $("#filterBuong").val();
         let dataFilterNoVisit = $("#filterNoVisit").val();
@@ -505,7 +512,8 @@ $(document).ready(function () {
             });
         });
     });
-    $('#menu').on('click', '#exportPdfBtn', function () {
+    $('#menu').on('click', '#exportPdfBtn', async function () {
+        const dataFilePath = await getDataFilePath('data.json');
         if (user && user.role === 'user') return false;
         const today = moment().format("[ngày] DD [tháng] MM [năm] YYYY");
         const titlePdf = "DANH SÁCH NGƯỜI BỊ TẠM GIAM, TẠM GIỮ ĐI THĂM GẶP THÂN NHÂN";

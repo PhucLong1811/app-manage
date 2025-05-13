@@ -17,8 +17,9 @@ pdfMake.fonts = {
     },
 };
 
-const dataFilePath = path.join(__dirname, '../..', 'data', 'data.json');
-const dataUserPath = path.join(__dirname, '../..', 'data', 'user.json');
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
 function formatDateDMY(dateStr) {
     if (dateStr == '') return '';
     return moment(dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY');
@@ -27,7 +28,8 @@ function formatDateYMD(dateStr) {
     if (dateStr == '') return '';
     return moment(dateStr, 'DD/MM/YYYY').format('YYYY-MM-DD');
 }
-function loadUserData() {
+async function loadUserData() {
+    const dataFilePath = await getDataFilePath('data.json');
     $.getJSON(dataFilePath, function (data) {
         const html = data.map((item, index) => {
             return `<tr>
@@ -60,7 +62,8 @@ function loadUserData() {
         $('#listVisitUser tbody').append(html);
     });
 }
-function renderFilter() {
+async function renderFilter() {
+    const dataFilePath = await getDataFilePath('data.json');
     const filterZone = $("#filterZone");
     const filterCell = $("#filterCell");
     const filterNoVisit = $("#filterNoVisit");
@@ -98,9 +101,10 @@ function renderFilter() {
         console.error("Lỗi:", error);
     }
 }
-function handleExportExcel() {
+async function handleExportExcel() {
     try {
-        const filteredData = handleFilterData();
+        const filteredData = await handleFilterData();
+
         // Loại bỏ `created_at`, `updated_at` & đổi ID thành username
         const sanitizedData = filteredData.map(({ created_at, updated_at, created_by_user, updated_by_user, ...item }, index) => ({
             "STT": index + 1,
@@ -134,10 +138,10 @@ function handleExportExcel() {
         console.error("Lỗi:", error);
     }
 }
-function handleExportPdf() {
+async function handleExportPdf() {
     try {
         const titlePdf = "DANH SÁCH NGƯỜI BỊ TẠM GIAM, TẠM GIỮ";
-        const filteredData = handleFilterData();
+        const filteredData = await handleFilterData();
         const dataList = filteredData.map(({ created_at, updated_at, created_by_user, updated_by_user, ...item }, index) => ({
             "STT": index + 1,
             "last_name": item.last_name,
@@ -279,10 +283,10 @@ function handleExportPdf() {
 }
 
 
-function handleFilterData() {
+async function handleFilterData() {
     try {
+        const dataFilePath = await getDataFilePath('data.json');
         const data = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
-
         const dataSortName = $("#sortName").val();
         const dataFilterZone = $("#filterZone").val();
         const dataFilterCell = $("#filterCell").val();

@@ -1,3 +1,4 @@
+const { app } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
@@ -5,10 +6,10 @@ const bcrypt = require('bcrypt');
 module.exports = (ipcMain, mainWindow, navigateTo, historyStack) => {
     ipcMain.on("login-attempt", (event, { username, password }) => {
         try {
-            const filePath = path.join(__dirname, "../data/user.json");
+            const userDataPath = path.join(app.getPath('userData'), 'data');
+            const filePath = path.join(userDataPath, 'user.json');
             const rawData = fs.readFileSync(filePath, "utf-8");
             const users = JSON.parse(rawData);
-
             const user = users.find(user => user.username === username);
             if (!user) {
                 event.reply("login-response", { success: false, message: "Tài khoản không tồn tại!" });

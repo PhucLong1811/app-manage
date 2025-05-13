@@ -6,8 +6,9 @@ const moment = require('moment');
 require('jquery-validation'); // Import jQuery Validation Plugin
 const Swal = require('sweetalert2');
 
-const reportFilePath = path.join(__dirname, '../..', 'data', 'report.json');
-
+async function getDataFilePath(fileName) {
+    return await ipcRenderer.invoke('get-data-file-path', fileName);
+}
 function addEditor() {
     tinymce.init({
         selector: "#editorCreateReport",
@@ -110,7 +111,8 @@ function addEditor() {
     });
 }
 
-function saveReport(title) {
+async function saveReport(title) {
+    const reportFilePath = await getDataFilePath('report.json');
     const content = tinymce.get("editorCreateReport").getContent().trim();
     const topMargin = $('#createForm #margin-top').val();
     const rightMargin = $('#createForm #margin-right').val();
