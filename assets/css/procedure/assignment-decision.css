@@ -40,3 +40,6 @@
 .cardFooter .note {
     margin-top: 0;
 }
+.cardFooter .signature {
+    margin: 0 50px 0 30px;
+}

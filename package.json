@@ -61,6 +61,13 @@
     "productName": "ManageApp",
     "icon": "assets/images/common/logo.ico",
     "copyright": "Copyright © 2025",
+    "extraResources": [
+      {
+        "from": "data",
+        "to": "data",
+        "filter": ["**/*"]
+      }
+    ],
     "win": {
       "target": [
         "nsis"

@@ -1,6 +1,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    border: 1px solid black;
     margin-top: 10px;
     /* width: 550pt; */
     /* margin-left: -1.5cm; */
@@ -11,6 +12,7 @@ th, td {
     padding: 5px;
     text-align: left;
     border: 1px solid black;
+    box-sizing: border-box;
 }
 
 th {
@@ -36,4 +38,7 @@ td {
     top: -12px;
     font-size: 9pt;
     text-align: center;
+}
+.cardFooter .signature {
+    margin: 0 50px;
 }

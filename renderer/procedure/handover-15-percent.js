@@ -53,97 +53,114 @@ $(document).ready(function () {
         $('#tableUser tbody').empty();
     });
     $("#export15PercentPdf").on("click", function () {
-        const title = $(this).data('title') || 'Biên bản';
+        const title = $(this).data("title") || "Biên bản";
         const element = $("#document");
+        const rowsCount = element.find("table tr").length;
         const originalCardFooter = element.find(".cardFooter");
         const originalAreaInfo = element.find(".cardBody .areaInfoLast");
-
-        // Đếm số hàng của bảng
-        const rowsCount = element.find("table tr").length;
-
-        // Clone gốc
-        const tempDiv = element.clone();
-
-        // Chuyển input -> span
-        tempDiv.find("input").each(function () {
-            const value = $(this).val() || "";
-            $(this).replaceWith(`<span>${value}</span>`);
-        });
-
-        // Gắn tempDiv tạm vào body
+    
+        // Clone element và chuyển input -> span
+        const tempDiv = cloneAndConvertInputs(element);
         tempDiv.css({ position: "absolute", left: "-9999px", top: "0" });
         $("body").append(tempDiv);
-
-        // Nếu bảng có >= 2 hàng thì tách areaInfo + cardFooter sang trang khác
-        if (rowsCount >= 2 && originalCardFooter.length) {
-            // Clone areaInfo & cardFooter
-            const areaInfoClone = originalAreaInfo.clone();
-            const cardFooterClone = originalCardFooter.clone();
-
-            // Chuyển input -> span trong areaInfoClone
-            areaInfoClone.find("input").each(function () {
-                const value = $(this).val() || "";
-                $(this).replaceWith(`<span>${value}</span>`);
+    
+        const imgWidth = 210;
+    
+        // Hàm render canvas -> pdf
+        function renderToPDF(canvas, pdf, addNewPage = false) {
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            if (addNewPage) pdf.addPage();
+            pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, imgWidth, imgHeight);
+        }
+    
+        // Hàm xử lý hiển thị và in PDF
+        function finalizePDF(pdf) {
+            pdf.autoPrint();
+            window.open(pdf.output("bloburl"), "_blank");
+        }
+    
+        // Hàm tạo canvas từ div
+        function createCanvasFromElement(div, callback) {
+            html2canvas(div[0], { scale: 3 }).then(callback);
+        }
+    
+        // Hàm clone và chuyển input -> span
+        function cloneAndConvertInputs(source) {
+            const clone = source.clone();
+            clone.find("input").each(function () {
+                const $input = $(this);
+                const value = $input.val() || "";
+                if ($input.hasClass("date") && value === "") {
+                    $input.replaceWith(`<span>......</span>`);
+                } else if ($input.hasClass("year") && value === "") {
+                    $input.replaceWith(`<span>..........</span>`);
+                } else if ($input.hasClass("inputNumber") && value === "") {
+                    $input.replaceWith(`<span>..........</span>`);
+                } else if ($input.hasClass("dateMonthYear") && value === "") {
+                    $input.replaceWith(`<span>......................</span>`);
+                } else {
+                    $input.replaceWith(`<span>${value}</span>`);
+                }
             });
-
-            // Chuyển input -> span trong cardFooterClone
-            cardFooterClone.find("input").each(function () {
-                const value = $(this).val() || "";
-                $(this).replaceWith(`<span>${value}</span>`);
-            });
-
-            // Bỏ areaInfo & cardFooter khỏi bản chính
-            tempDiv.find(".areaInfoLast").remove();
-            tempDiv.find(".cardFooter").remove();
-
-            // Export phần chính (không có areaInfo và footer)
-            html2canvas(tempDiv[0], { scale: 3 }).then((canvas1) => {
+            return clone;
+        }
+    
+        if (rowsCount < 3) {
+            createCanvasFromElement(tempDiv, (canvas) => {
                 const pdf = new jsPDF("p", "mm", "a4");
-                const imgWidth = 210;
-                const imgHeight = (canvas1.height * imgWidth) / canvas1.width;
-                pdf.addImage(canvas1.toDataURL("image/png"), "PNG", 0, 0, imgWidth, imgHeight);
-
-                // Tạo div chứa areaInfo + cardFooter
-                const extraDiv = $("<div id='document'></div>")
-                    .append(areaInfoClone)
-                    .append(cardFooterClone);
-                extraDiv.css({ position: "absolute", left: "-9999px", top: "0" });
-                $("body").append(extraDiv);
-
-                setTimeout(() => {
-                    html2canvas(extraDiv[0]).then((canvas2) => {
-                        pdf.addPage();
-                        const extraHeight = (canvas2.height * imgWidth) / canvas2.width;
-                        pdf.addImage(canvas2.toDataURL("image/png"), "PNG", 0, 0, imgWidth, extraHeight);
-
-                        // Auto print and open in new window
-                        pdf.autoPrint();
-                        window.open(pdf.output('bloburl'), '_blank');
-
-                        setTimeout(() => {
-                            tempDiv.remove();
-                            extraDiv.remove();
-                        }, 1000);
-                    });
-                }, 200); // Đợi render DOM
+                renderToPDF(canvas, pdf);
+                finalizePDF(pdf);
+                setTimeout(() => tempDiv.remove(), 1000);
             });
         } else {
-            // Nếu < 2 hàng thì xuất bình thường
-            html2canvas(tempDiv[0], { scale: 3 }).then((canvas) => {
-                const pdf = new jsPDF("p", "mm", "a4");
-                const imgWidth = 210;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-                pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, imgWidth, imgHeight);
-                // Auto print and open in new window
-                pdf.autoPrint();
-                window.open(pdf.output('bloburl'), '_blank');
-
-                setTimeout(() => {
-                    tempDiv.remove();
-                }, 1000);
+            let extraDiv;
+    
+            const pdf = new jsPDF("p", "mm", "a4");
+            let canvas1Done = false;
+    
+            const cardFooterClone = cloneAndConvertInputs(originalCardFooter);
+            const areaInfoClone = cloneAndConvertInputs(originalAreaInfo);
+    
+            if (rowsCount === 3 && originalCardFooter.length) {
+                tempDiv.find(".cardFooter .note").remove();
+                cardFooterClone.find(".signature").remove();
+                extraDiv = $("<div id='document'></div>").append(cardFooterClone);
+            }
+    
+            if (rowsCount >= 6) {
+                tempDiv.find(".areaInfoLast, .cardFooter").remove();
+                extraDiv = $("<div id='document'></div>").append(areaInfoClone, cardFooterClone);
+            } else if (rowsCount > 3) {
+                tempDiv.find(".cardFooter").remove();
+                extraDiv = $("<div id='document'></div>").append(cardFooterClone);
+            }
+    
+            if (extraDiv) {
+                extraDiv.css({ position: "absolute", left: "-9999px", top: "0" });
+                $("body").append(extraDiv);
+            }
+    
+            createCanvasFromElement(tempDiv, (canvas1) => {
+                renderToPDF(canvas1, pdf);
+    
+                if (extraDiv) {
+                    setTimeout(() => {
+                        createCanvasFromElement(extraDiv, (canvas2) => {
+                            renderToPDF(canvas2, pdf, true);
+                            finalizePDF(pdf);
+                            setTimeout(() => {
+                                tempDiv.remove();
+                                extraDiv.remove();
+                            }, 1000);
+                        });
+                    }, 200);
+                } else {
+                    finalizePDF(pdf);
+                    setTimeout(() => tempDiv.remove(), 1000);
+                }
             });
         }
     });
+    
     showUserDataBySelect();
 });

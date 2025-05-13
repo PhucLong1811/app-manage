@@ -59,7 +59,11 @@
         const { ipcRenderer } = require("electron");
 
         const user = JSON.parse(sessionStorage.getItem("user"));
-
+        async function getDataFilePath(fileName) {
+            console.log(await ipcRenderer.invoke('get-data-file-path', 'user.json'))
+            console.log(await ipcRenderer.invoke('get-data-file-path', 'data.json'))
+            return await ipcRenderer.invoke('get-data-file-path', fileName);
+        }
         $(document).ready(() => {
             $('.wrapInput').on('click', '.iconEye', function () {
                 const self = $(this);

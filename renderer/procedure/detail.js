@@ -1,6 +1,6 @@
 // const $ = require('jquery');
 // require('select2');
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, remote } = require('electron');
 const path = require('path');
 const moment = require('moment');
 const { jsPDF } = require("jspdf");
@@ -84,12 +84,26 @@ $(document).ready(function () {
         const tempDiv = element.clone();
 
         // Chuyển input -> span để giữ giá trị nhập vào
+        // tempDiv.find("input").each(function () {
+        //     const value = $(this).val() || "";
+        //     $(this).replaceWith(`<span>${value}</span>`);
+        // });
+
         tempDiv.find("input").each(function () {
-            const value = $(this).val() || "";
-            $(this).replaceWith(`<span>${value}</span>`);
+            const $input = $(this);
+            const value = $input.val() || "";
+            if ($input.hasClass("date") && value === "") {
+                $input.replaceWith(`<span>......</span>`);
+            } else if ($input.hasClass("year") && value === "") {
+                $input.replaceWith(`<span>..........</span>`);
+            } else if ($input.hasClass("inputNumber") && value === "") {
+                $input.replaceWith(`<span>..........</span>`);
+            } else if ($input.hasClass("dateMonthYear") && value === "") {
+                $input.replaceWith(`<span>......................</span>`);
+            } else {
+                $input.replaceWith(`<span>${value}</span>`);
+            }
         });
-
-
 
         // Đặt tempDiv ra khỏi viewport
         tempDiv.css({ position: "absolute", left: "-9999px" }).appendTo("body");

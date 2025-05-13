@@ -25,7 +25,7 @@ async function loadUserData(ids) {
                 <td>${user.last_name}</td>
                 <td>${user.first_name}</td>
                 <td>${moment(user.birthdate, 'YYYY-MM-DD').format('YYYY')}</td>
-                <td>${user.cell}</td>
+                <td>${user.zone + '-' + user.cell}</td>
                 <td>${user.offense}</td>
                 <td>${formatDate(user.arrest_date)}</td>
                 <td>${user.hometown}</td>
@@ -40,8 +40,19 @@ async function loadUserData(ids) {
 }
 function replaceInputsWithSpans(container) {
     container.find("input").each(function () {
-        const value = $(this).val() || "";
-        $(this).replaceWith(`<span>${value}</span>`);
+        const $input = $(this);
+        const value = $input.val() || "";
+        if ($input.hasClass("date") && value === "") {
+            $input.replaceWith(`<span>......</span>`);
+        } else if ($input.hasClass("year") && value === "") {
+            $input.replaceWith(`<span>..........</span>`);
+        } else if ($input.hasClass("inputNumber") && value === "") {
+            $input.replaceWith(`<span>..........</span>`);
+        } else if ($input.hasClass("dateMonthYear") && value === "") {
+            $input.replaceWith(`<span>......................</span>`);
+        } else {
+            $input.replaceWith(`<span>${value}</span>`);
+        }
     });
 }
 

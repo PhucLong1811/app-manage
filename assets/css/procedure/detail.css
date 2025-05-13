@@ -3,6 +3,9 @@ body {
     font-size: 14pt;
     line-height: 1.3;
 }
+.fz13 {
+    font-size: 13pt !important;
+}
 .bold {
     font-weight: bold;
 }
@@ -119,7 +122,7 @@ body {
 .card-detail {
     width: 595.28pt;
     min-height: 841.89pt;
-    padding: 0;
+    padding: 0 0 1cm 0;
 }
 .inputStyle {
     border: 0;
@@ -143,7 +146,7 @@ body {
     min-width: 20px !important;
 }
 .inputStyle.small-40{
-    max-width: 50px !important;
+    max-width: 40px !important;
     min-width: 20px !important;
 }
 .inputStyle.small-50{
@@ -198,6 +201,18 @@ body {
     max-width: 350px !important;
     min-width: 20px !important;
 }
+.inputStyle.date{
+    max-width: 30px !important;
+    min-width: 20px !important;
+}
+.inputStyle.year{
+    max-width: 50px !important;
+    min-width: 20px !important;
+}
+.inputStyle.dateMonthYear{
+    max-width: 100px !important;
+    min-width: 20px !important;
+}
 #document {
     font-family: "Times New Roman", Times, serif;
     font-size: 14pt;
@@ -232,6 +247,9 @@ body {
     border-bottom: 1px dashed #000;
     width: 30px;
     text-align: center;
+}
+#document .cardHeader .leftHeader .txt .inputStyle.inputNumber {
+    width: 50px;
 }
 #document .cardHeader .leftHeader .txtItalic,
 #document .cardHeader .rightHeader .txtItalic {
@@ -383,8 +401,8 @@ body {
 .cardFooter .signature .areaSignature .fullNameSignature {
     text-align: center;
     font-size: 14pt;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-weight: normal;
+    /* text-transform: uppercase; */
 }
 .cardFooter .signature .areaSignature .fullNameSignature .inputStyle {
     text-align: center;
@@ -398,7 +416,7 @@ body {
     margin-top: 40px;
 }
 .cardFooter .note .title {
-    font-size: 11pt;
+    font-size: 12pt;
     font-weight: bold;
 }
 .cardFooter .note .txt {

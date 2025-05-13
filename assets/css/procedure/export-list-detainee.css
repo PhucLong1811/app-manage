@@ -3,24 +3,19 @@ table {
     border-collapse: collapse;
     margin-top: 10px;
     font-size: 12pt;
-    border-collapse: collapse;
+    border: 1px solid black;
     /* width: 550pt; */
     /* margin-left: -1.5cm; */
 }
 
 th, td {
-    border: 0;
     padding: 5px;
-    text-align: left;
+    text-align: center;
     border: 1px solid black;
 }
 
 th {
     font-weight: bold;
-    text-align: center;
-}
-td {
-    text-align: center;
 }
 .card-detail {
     width: 297mm;
@@ -33,7 +28,7 @@ td {
 #document {
     font-family: "Times New Roman", Times, serif;
     border-radius: 10px;
-    padding: 2cm 1.5cm 1.5cm 3cm;
+    padding: 2cm 1.5cm 1.5cm 1.5cm;
     width: 297mm;
 }
 #document .cardBody .areaTitle {
@@ -42,19 +37,18 @@ td {
 }
 #document .cardBody .areaTitle .title {
     text-align: center;
-    font-size: 13pt;
+    font-size: 12pt;
     font-weight: bold;
     text-transform: uppercase;
 }
 #document .cardBody .areaTitle .subTitle {
-    font-size: 13pt;
+    font-size: 12pt;
     font-weight: 500;
 }
 .cardFooter .signature {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-    gap: 200px
+    justify-content: space-between;
+    margin: 20px 80px 0 80px;
 }
 .cardFooter .signature .areaSignature {
     margin-top: 15px;
